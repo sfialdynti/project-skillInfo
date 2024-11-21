@@ -132,7 +132,7 @@ class AssessorController extends Controller
         ->select('users.*', 'assessors.assessor_type')
         ->get();
             
-        return view('assessorext-create', compact('user', 'profile'));
+        return view('admin.assessorext-create', compact('user', 'profile'));
     }
 
     public function editExternal(Request $request)

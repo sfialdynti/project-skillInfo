@@ -154,7 +154,6 @@ class UserController extends Controller
             if ($request->old_image) {
                 Storage::delete('public/image/'. $request->old_image);
             }
-            
         }
 
         $password = $user->password;

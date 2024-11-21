@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssessorController;
+use App\Http\Controllers\CompetencyStandardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Models\Competency_standard;
 use App\Models\Major;
 use Illuminate\Support\Facades\Route;
 
@@ -68,24 +70,24 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
     Route::get('/assessorint/delete/{id}', [AssessorController::class, 'deleteint']);
     Route::post('/assessor/create/{type}', [AssessorController::class, 'add'])->name('assessor.create');
 
-    // Route::post('/assessor/create/internal', [AssessorController::class, 'add']);
-
     Route::get('/table-assessorext', [AssessorController::class, 'external']);
     Route::post('/table-assessorext', [AssessorController::class, 'searchExternal']);
     Route::get('/assessor/create/external', [AssessorController::class, 'createExternal']);
     Route::get('/assessorext/edit/{id}', [AssessorController::class, 'editExternal']);
     Route::post('/assessorext/update/{id}', [AssessorController::class, 'updateExternal'])->name('assessorext.update');
-    Route::get('/assessorint/delete/{id}', [AssessorController::class, 'deleteint']);
-
     Route::get('/assessorext/delete/{id}', [AssessorController::class, 'deleteext']);
-
-
 
 
 
 });
 
-Route::group(['middleware'=> ['auth', 'cekrole:Student']], function () {
-    // Route::get('/dashboard', [DashboardController::class, 'show']);
+Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'showass']);
+    Route::get('/detail/profile/{id}', [DashboardController::class, 'profileass']);
+
+    Route::get('/table-competency_standard', [CompetencyStandardController::class, 'showCS']);
+    Route::get('/competency_standard/create', [CompetencyStandardController::class, 'createCS']);
+    Route::post('/competency_standard/create', [CompetencyStandardController::class, 'addCS']);
+
 
 });

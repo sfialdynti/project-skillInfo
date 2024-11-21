@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competency_element;
+use App\Models\Competency_standard;
 use App\Models\Major;
 use App\Models\Student;
 use App\Models\User;
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
+    // DASHBOARD ADMIN
     public function show(){
         $user = Auth::user();
         $data = [
@@ -63,7 +66,6 @@ class DashboardController extends Controller
             if ($request->old_image) {
                 Storage::delete('public/image/'. $request->old_image);
             }
-            
         }
 
         $update = User::where('id', $request->id)->update([
@@ -82,5 +84,24 @@ class DashboardController extends Controller
         }
 
         return redirect('detail-profile');
+    }
+
+
+    // DASHBOARD ASSESSOR
+    public function showass()
+    {
+        $user = Auth::user();
+        $data = [
+            'total_cs' => Competency_standard::count(),
+            'total_ce' => Competency_element::count()
+        ];
+
+        return view('assessor.dashboard', ['user' => $user] + $data);
+    }
+
+    public function profileass(Request $request)
+    {
+        $data['user'] = User::find($request->id);
+        return view('assessor.detail-profile', $data);
     }
 }
