@@ -130,7 +130,7 @@
 <body>
     <div class="main-container">
         <div class="welcome-section" style="text-align: center;">
-            <img src="{{ asset('assets/img/logosmkypc.png') }}" alt="Logo Skill Info" style="width: 85px;">
+            {{-- <img src="{{ asset('assets/img/logosmkypc.png') }}" alt="Logo Skill Info" style="width: 85px;"> --}}
             <h1>Welcome to<br> Skill Info</h1>
             <p>To keep connected with us please login with your personal info</p>
             <p></p>

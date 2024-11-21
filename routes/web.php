@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::get('/login', [LoginController::class, 'login']);
 Route::post('/auth', [LoginController::class, 'auth']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'show']);

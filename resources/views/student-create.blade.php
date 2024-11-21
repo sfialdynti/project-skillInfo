@@ -176,6 +176,16 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Logout</span>
+          </a>
+        </li>
       </ul>
     </div>
   </aside>
@@ -213,6 +223,7 @@
                     <div class="form-group">
                         <label for="grade_level" class="form-control-label">Grade Level</label>
                         <select name="grade_level" id="grade_level" class="form-control">
+                            <option value="" disabled selected>Select a grade</option>
                             <option value="10" {{ old('grade_level') == 10 ? 'selected' : '' }}>Grade 10</option>
                             <option value="11" {{ old('grade_level') == 11 ? 'selected' : '' }}>Grade 11</option>
                             <option value="12" {{ old('grade_level') == 12 ? 'selected' : '' }}>Grade 12</option>
@@ -225,6 +236,7 @@
                       <label for="major" class="form-control-label">Major</label>
                       <select class="form-control @error('majors_id') is-invalid @enderror" id="major" name="majors_id">
                       @foreach ($major as $item)
+                          <option value="" disabled selected>Select a major</option>
                           <option value="{{ $item->id }}" {{ old('majors_id') == $item->id ? 'selected' : '' }}>
                             {{ $item->major_name }}
                           </option>
@@ -237,6 +249,7 @@
                     <div class="form-group">
                         <label for="user" class="form-control-label">User</label>
                         <select class="form-control @error('users_id') is-invalid @enderror" id="user" name="users_id">
+                          <option value="" disabled selected>Select a user</option>
                         @foreach ($user as $item)
                             <option value="{{ $item->id }}" {{ old('users_id') == $item->id ? 'selected' : '' }}>{{ $item->full_name }}</option>
                         @endforeach
