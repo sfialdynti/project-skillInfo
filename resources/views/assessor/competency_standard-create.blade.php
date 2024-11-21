@@ -165,6 +165,7 @@
                         <div class=" invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
+                    <input type="hidden" name="assessors_id" value="{{ Auth::id() }}">
                     <div class="mt-5">
                       <button type="submit" class="btn btn-primary btn-md">Submit</button>
                     </div>

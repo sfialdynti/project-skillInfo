@@ -82,7 +82,7 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
 });
 
 Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'showass']);
+    Route::get('/dashboardAssessor', [DashboardController::class, 'showass']);
     Route::get('/detail/profile/{id}', [DashboardController::class, 'profileass']);
 
     Route::get('/table-competency_standard', [CompetencyStandardController::class, 'showCS']);

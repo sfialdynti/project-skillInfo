@@ -26,7 +26,15 @@ class LoginController extends Controller
 
         if (Auth::attempt($validate)) {
             $request->session()->regenerate();
-            return redirect('/dashboard');
+            if (Auth::user()->role == 'Admin') {
+                return redirect('/dashboard');
+            } elseif (Auth::user()->role == 'Assessor') {
+                return redirect('/dashboardAssessor');
+            } else {
+                return redirect('/dashboard');
+            }
+
+            // return redirect('/dashboard');
         }
 
         return redirect()->back()->with('statusLogin', 'Maaf Login anda gagal, Email atau Password yang dimasukkan salah');
