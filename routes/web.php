@@ -86,9 +86,10 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::get('/detail/profile/{id}', [DashboardController::class, 'profileass']);
 
     Route::get('/table-competency_standard', [CompetencyStandardController::class, 'showCS']);
-    Route::get('/competency_standard/create', [CompetencyStandardController::class, 'createCS']);
-    Route::post('/competency_standard/create', [CompetencyStandardController::class, 'addCS']);
-    Route::get('/competency_standard/delete/{id}', [CompetencyStandardController::class, 'deleteCS']);
+    Route::get('/competency_standard/create', [CompetencyStandardController::class, 'create']);
+    Route::post('/competency_standard/create', [CompetencyStandardController::class, 'add']);
+    Route::get('/competency_standard-edit/{id}', [CompetencyStandardController::class, 'edit']);
+    Route::get('/competency_standard/delete/{id}', [CompetencyStandardController::class, 'delete']);
 
 
 });

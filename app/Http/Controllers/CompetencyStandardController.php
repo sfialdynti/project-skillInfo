@@ -21,7 +21,7 @@ class CompetencyStandardController extends Controller
         return view('assessor.table-competency_standard', $data);
     }
 
-    public function createCS()
+    public function create()
     {
         $data['profile'] = Auth::user();
         $data['major'] = Major::all();
@@ -29,7 +29,7 @@ class CompetencyStandardController extends Controller
         return view('assessor.competency_standard-create', $data);
     }
 
-    public function addCS(Request $request)
+    public function add(Request $request)
     {
         $assessor_id = Assessor::where('users_id', Auth::user()->id)->value('id');
 
@@ -65,10 +65,46 @@ class CompetencyStandardController extends Controller
         return redirect('table-competency_standard');
     }
 
-    public function editCS(Request $request)
+    public function edit(Request $request)
     {
-        $profile = Auth::user();
-        // $cs = Competency_standard::whe
+        $data['profile'] = Auth::user();
+        $data['cs'] = Competency_standard::find($request->id);
+        $data['major'] = Major::all();
+
+        return view('assessor.competency_standard-edit', $data);
+    }
+
+    public function update(Request $request)
+    {
+        Competency_standard::findOrFail($request->id);
+        $request->validate([
+            'unit_code' => ['required', 'max:32'],
+            'unit_title' => ['required', 'max:64'],
+            'unit_description' => 'required',
+            'majors_id' => 'required',
+        ], [
+            'unit_code.required' => 'Unit code cannot be empty',
+            'unit_code.max' => 'Maximum 32 characters',
+            'unit_title.required' => 'Unit title cannot be empty',
+            'unit_title.max' => 'Maximum 64 characters',
+            'unit_description.required' => 'Unit description cannot be empty',
+            'majors_id.required' => 'Majors cannot be empty'
+        ]);
+
+        $update = Competency_standard::where('id', $request->id)->update([
+            'unit_code' => $request->unit_code,
+            'unit_title' => $request->unit_title,
+            'unit_description' => $request->unit_description,
+            'majors_id' => $request->majors_id,
+        ]);
+
+        if ($update) {
+            Session::flash('message', 'Data changed successfully');
+        } else {
+            Session::flash('message', 'Data failed to change');
+        }
+
+        return redirect('table-competency_standard');
     }
 
     public function deleteCS(Request $request)
