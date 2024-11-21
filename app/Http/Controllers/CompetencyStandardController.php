@@ -17,16 +17,15 @@ class CompetencyStandardController extends Controller
         $userId = Auth::id(); 
         $assessor = Assessor::where('users_id', $userId)->first();
         $data['cs'] = Competency_standard::where('assessors_id', $assessor->id)->orderby('unit_code', 'asc')->paginate(10);
-        // $data['cs'] = Competency_standard::orderby('unit_code', 'asc')->get();
-        // $data['cs'] = Competency_standard::paginate(10);
+
         return view('assessor.table-competency_standard', $data);
     }
 
     public function createCS()
     {
         $data['profile'] = Auth::user();
-        // $data['assessor'] = Auth::user();
         $data['major'] = Major::all();
+
         return view('assessor.competency_standard-create', $data);
     }
 
@@ -61,6 +60,25 @@ class CompetencyStandardController extends Controller
             Session::flash('message', 'Data saved successfully');
         } else {
             Session::flash('message', 'Data failed to save');
+        }
+
+        return redirect('table-competency_standard');
+    }
+
+    public function editCS(Request $request)
+    {
+        $profile = Auth::user();
+        // $cs = Competency_standard::whe
+    }
+
+    public function deleteCS(Request $request)
+    {
+        Competency_standard::find($request->id);
+        $delete = Competency_standard::where('id', $request->id)->delete();
+        if ($delete) {
+            Session::flash('message', 'Data deleted successfully');
+        }else{
+            Session::flash('message', 'Data failed to delete');
         }
 
         return redirect('table-competency_standard');
