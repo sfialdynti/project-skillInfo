@@ -148,11 +148,21 @@
               </button>
               </a>
             </div>
-            @if ($cs->isEmpty())
+            @if ($element->isEmpty())
             <p class="ms-4 text-danger">No Competency Standard found.</p>
             @else
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
+                <form method="GET" action="{{ route('competency.elements', ['id' => $competencyStandard->id]) }}">
+                    <label for="competency_standard">Pilih Competency Standard:</label>
+                    <select name="competency_standard_id" id="competency_standard" class="form-control" onchange="this.form.submit()">
+                        @foreach ($allCompetencyStandards as $standard)
+                            <option value="{{ $standard->id }}" {{ $competencyStandard->id == $standard->id ? 'selected' : '' }}>
+                                {{ $standard->code_unit }} - {{ $standard->title_unit }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
@@ -183,11 +193,6 @@
                     <td class="align-middle">
                         <p class="text-xs font-weight-bold mb-0">{{ $item->majors->major_name }}</p>
                     </td>
-                    <td>
-                      <a href="{{ route('competency.elements', ['id' => $item->id]) }}" class="btn btn-primary">
-                          Lihat Elemen
-                      </a>
-                  </td>
                     <td class="align-middle text-center">
                         <a href="competency_standard/edit/{{ $item->id }}" class="text-secondary font-weight-bold text-info me-3" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

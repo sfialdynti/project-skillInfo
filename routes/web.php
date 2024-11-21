@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssessorController;
+use App\Http\Controllers\CompetencyElementController;
 use App\Http\Controllers\CompetencyStandardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -88,8 +89,12 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::get('/table-competency_standard', [CompetencyStandardController::class, 'showCS']);
     Route::get('/competency_standard/create', [CompetencyStandardController::class, 'create']);
     Route::post('/competency_standard/create', [CompetencyStandardController::class, 'add']);
-    Route::get('/competency_standard-edit/{id}', [CompetencyStandardController::class, 'edit']);
+    Route::get('/competency_standard/edit/{id}', [CompetencyStandardController::class, 'edit']);
+    Route::post('/competency_standard/update/{id}', [CompetencyStandardController::class, 'update']);
     Route::get('/competency_standard/delete/{id}', [CompetencyStandardController::class, 'delete']);
+
+    Route::get('/competency-standard/{id}/elements', [CompetencyElementController::class, 'showCE'])->name('competency.elements');
+
 
 
 });
