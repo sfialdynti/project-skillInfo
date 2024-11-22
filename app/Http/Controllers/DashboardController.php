@@ -24,13 +24,13 @@ class DashboardController extends Controller
             'total_major' => Major::count()
         ];
         // return view('dashboard', compact('user'));
-        return view('dashboard', ['user' => $user] + $data);
+        return view('admin.dashboard', ['user' => $user] + $data);
     }
 
     public function profile(Request $request)
     {
         $data['user'] = User::find($request->id);
-        return view('detail-profile', $data);
+        return view('admin.detail-profile', $data);
     }
 
     public function updtprofile(Request $request)

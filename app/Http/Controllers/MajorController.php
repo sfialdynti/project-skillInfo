@@ -14,7 +14,7 @@ class MajorController extends Controller
         $data['profile'] = Auth::user();
         $data['major'] = Major::orderby('major_name', 'asc')->get();
         $data['major'] = Major::paginate(10);
-        return view('table-major', $data);
+        return view('admin.table-major', $data);
     }
 
     public function search(Request $request)
@@ -28,13 +28,13 @@ class MajorController extends Controller
         }
 
         $data['major'] = $query->paginate(10)->appends(['search' => $search]);
-        return view('table-major', $data);
+        return view('admin.table-major', $data);
     }
 
     public function create()
     {
         $data['profile'] = Auth::user();
-        return view('major-create', $data);
+        return view('admin.major-create', $data);
     }
 
     public function add(Request $request)
@@ -65,7 +65,7 @@ class MajorController extends Controller
     {
         $data['profile'] = Auth::user();
         $data['major'] = Major::find($request->id);
-        return view('major-edit', $data);
+        return view('admin.major-edit', $data);
     }
 
     public function update(Request $request)

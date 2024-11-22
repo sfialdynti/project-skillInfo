@@ -82,7 +82,7 @@
       </li>
       {{-- STUDENT --}}
       <li class="nav-item">
-        <a class="nav-link active" href="/table-student">
+        <a class="nav-link" href="/table-student">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg class="text-dark" width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> 
             <title>customer-support</title>
@@ -133,7 +133,7 @@
       </li>
         {{-- MAJOR --}}
         <li class="nav-item">
-          <a class="nav-link" href="/table-major">
+          <a class="nav-link active" href="/table-major">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -196,9 +196,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Student</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Major</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Student</h6>
+          <h6 class="font-weight-bolder mb-0">Major</h6>
         </nav>
       </div>
     </nav>
@@ -208,56 +208,25 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Create Student</h6>
+                <h6>Create Major</h6>
             </div>
             <div class="card-body px-4 pt-0 pb-2">
-                <form action="/student/create" method="POST" enctype="multipart/form-data">
+                <form action="/major/create" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="nisn" class="form-control-label">NISN</label>
-                        <input class="form-control @error('nisn') is-invalid @enderror" type="text" value="{{ old('nisn') }}" id="nisn" name="nisn">
-                        @error('nisn')
+                        <label for="major_name" class="form-control-label">Major Name</label>
+                        <input class="form-control @error('major_name') is-invalid @enderror" type="text" value="{{ old('major_name') }}" id="major_name" name="major_name">
+                        @error('major_name')
                           <div class=" invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="grade_level" class="form-control-label">Grade Level</label>
-                        <select name="grade_level" id="grade_level" class="form-control">
-                            <option value="" disabled selected>Select a grade</option>
-                            <option value="10" {{ old('grade_level') == 10 ? 'selected' : '' }}>Grade 10</option>
-                            <option value="11" {{ old('grade_level') == 11 ? 'selected' : '' }}>Grade 11</option>
-                            <option value="12" {{ old('grade_level') == 12 ? 'selected' : '' }}>Grade 12</option>
-                        </select>
-                        @error('grade_level')
-                          <div class=" invalid-feedback">{{ $message }}</div>
-                        @enderror
-                      </div>
-                    <div class="form-group">
-                      <label for="major" class="form-control-label">Major</label>
-                      <select class="form-control @error('majors_id') is-invalid @enderror" id="major" name="majors_id">
-                      @foreach ($major as $item)
-                          <option value="" disabled selected>Select a major</option>
-                          <option value="{{ $item->id }}" {{ old('majors_id') == $item->id ? 'selected' : '' }}>
-                            {{ $item->major_name }}
-                          </option>
-                      @endforeach
-                      </select>
-                      @error('majors_id')
+                      <label for="description" class="form-control-label">Description</label>
+                      <input class="form-control @error('description') is-invalid @enderror" type="text" value="{{ old('description') }}" id="description" name="description">
+                      @error('description')
                         <div class=" invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="user" class="form-control-label">User</label>
-                        <select class="form-control @error('users_id') is-invalid @enderror" id="user" name="users_id">
-                          <option value="" disabled selected>Select a user</option>
-                        @foreach ($user as $item)
-                            <option value="{{ $item->id }}" {{ old('users_id') == $item->id ? 'selected' : '' }}>{{ $item->full_name }}</option>
-                        @endforeach
-                        </select>
-                        @error('users_id')
-                          <div class=" invalid-feedback">{{ $message }}</div>
-                        @enderror
-                      </div>
                     <div class="mt-5">
                       <button type="submit" class="btn btn-primary btn-md">Submit</button>
                     </div>

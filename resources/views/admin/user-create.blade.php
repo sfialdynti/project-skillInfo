@@ -18,7 +18,7 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('/assets/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -59,7 +59,7 @@
           {{-- USER --}}
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/table-user">
+          <a class="nav-link active" href="/table-user">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg class="text-dark" width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> 
               <title>customer-support</title>
@@ -121,12 +121,12 @@
             </g> 
           </svg>
           </div>
-          <span class="nav-link-text ms-1 active">Assessor</span>
+          <span class="nav-link-text ms-1">Assessor</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse text-decoration-none" id="ass">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item active"> <a class="nav-link" href="/table-assessorint"> Internal </a></li>
+            <li class="nav-item "> <a class="nav-link" href="/table-assessorint"> Internal </a></li>
             <li class="nav-item"> <a class="nav-link" href="/table-assessorext"> External </a></li>
           </ul>
         </div>
@@ -196,9 +196,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Internal Assessor</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">User</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Internal Assessor</h6>
+          <h6 class="font-weight-bolder mb-0">User</h6>
         </nav>
       </div>
     </nav>
@@ -208,110 +208,78 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Create Assessor Internal</h6>
+              <h6>Create User</h6>
             </div>
             <div class="card-body px-4 pt-0 pb-2">
-                <form action="{{ route('assessorint.update', $assessor->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="user" class="form-control-label">User</label>
-                        <select class="form-control @error('users_id') is-invalid @enderror" id="user" name="users_id">
-                        @foreach ($user as $users)
-                            <option value="{{ $users->id }}" {{ $users->id == $assessor->users_id ? 'selected' : '' }}>
-                                {{ $users->full_name }}
-                            </option>
-                        @endforeach
-                        </select>
-                        @error('users_id')
-                          <div class=" invalid-feedback">{{ $message }}</div>
-                        @enderror
+              <form action="/user/create" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="full_name" class="form-control-label">Full Name</label>
+                    <input class="form-control @error('full_name') is-invalid @enderror" type="text" value="{{ old('full_name') }}" id="full_name" name="full_name">
+                    @error('full_name')
+                      <div class=" invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                  <label for="username" class="form-control-label">Username</label>
+                  <input class="form-control @error('username') is-invalid @enderror" type="text" value="{{ old('username') }}" id="username" name="username">
+                  @error('username')
+                    <div class=" invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-control-label">Email</label>
+                  <input class="form-control @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}" id="email" name="email">
+                  @error('email')
+                    <div class=" invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Password</label>
+                  <input class="form-control @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}" id="password" name="password">
+                  @error('password')
+                    <div class=" invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="phone_number" class="form-control-label">Phone Number</label>
+                  <input class="form-control @error('phone_number') is-invalid @enderror" type="tel" value="{{ old('phone_number') }}" id="phone_number" name="phone_number">
+                  @error('phone_number')
+                    <div class=" invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="role" class="form-control-label">Role</label>
+                  <select name="role" id="role" class="w-100 form-control @error('role') is-invalid @enderror">
+                    <option value="" disabled selected>Select Role</option>
+                    @foreach ($roles as $value)
+                        <option value="{{ $value }}">{{ ucfirst($value) }}</option>
+                    @endforeach
+                  </select>
+                  @error('role')
+                    <div class=" invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                    <label for="image" class="form-control-label">Image</label>
+                    <div class="input-group">
+                      <input class="form-control @error('image') is-invalid @enderror" type="file" value="" id="image" name="image"  aria-describedby="upload">
+                      <button class="btn btn-outline-primary mb-0" type="button" id="upload">Upload</button>
                     </div>
-                    <div class="form-group">
-                        <input type="hidden" name="assessor_type" value="Internal">
-                    </div>
-                    <div class="form-group">
-                      <label for="description" class="form-control-label">Description</label>
-                      <input class="form-control @error('description') is-invalid @enderror" type="text" value="{{ old('description', $assessor->description) }}" id="description" name="description">
-                      @error('description')
-                        <div class=" invalid-feedback">{{ $message }}</div>
-                      @enderror
-                    </div>
-                    <div class="mt-5">
-                      <button type="submit" class="btn btn-primary btn-md">Submit</button>
-                    </div>
-                </form>
+                    @error('image')
+                      <div class=" invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mt-5">
+                  <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                </div>
+            </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </main>
-  <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-      <i class="fa fa-cog py-2"> </i>
-    </a>
-    <div class="card shadow-lg ">
-      <div class="card-header pb-0 pt-3 ">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">Soft UI Configurator</h5>
-          <p>See our dashboard options.</p>
-        </div>
-        <div class="float-end mt-4">
-          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-            <i class="fa fa-close"></i>
-          </button>
-        </div>
-        <!-- End Toggle Button -->
-      </div>
-      <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
-        <!-- Sidebar Backgrounds -->
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-        <!-- Sidenav Type -->
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn btn-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-          <button class="btn btn-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
-        <div class="mt-3">
-          <h6 class="mb-0">Navbar Fixed</h6>
-        </div>
-        <div class="form-check form-switch ps-0">
-          <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-        </div>
-        <hr class="horizontal dark my-sm-4">
-        <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard">Free Download</a>
-        <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/license/soft-ui-dashboard">View documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
   <!--   Core JS Files   -->
   <script src=" {{ asset('/assets/js/core/popper.min.js') }}"></script>
   <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>

@@ -29,7 +29,8 @@ class UserController extends Controller
         $data['profile'] = Auth::user();
         $data['user'] = User::orderby('full_name', 'asc')->get();
         $data['user'] = User::paginate(10);
-        return view('table-user', $data);
+
+        return view('admin.table-user', $data);
     }
 
     public function search(Request $request)
@@ -45,14 +46,16 @@ class UserController extends Controller
         }
 
         $data['user'] = $query->paginate(10)->appends(['search' => $search]);
-        return view('table-user', $data);
+
+        return view('admin.table-user', $data);
     }
 
     public function create()
     {
         $profile = Auth::user();
         $roles = $this->getEnumValues('users', 'role');
-        return view('user-create', compact('roles', 'profile'));
+
+        return view('admin.user-create', compact('roles', 'profile'));
     }
 
     public function add(Request $request)
@@ -69,7 +72,7 @@ class UserController extends Controller
             'full_name.required' => 'Full name cannot be empty',
             'username.required' => 'Username cannot be empty',
             'username.min' => 'Minimum username must be 6 characters',
-            'username.max' => 'Maximum username 6 characters',
+            'username.max' => 'Maximum username 12 characters',
             'username.unique' => 'Username is already in use',
             'email.required' => 'Email cannot be empty',
             'email.email' => 'Enter a valid email',
@@ -78,7 +81,7 @@ class UserController extends Controller
             'password.min' => 'Minimum password must be 6 characters',
             'phone_number.required' => 'Phone number cannot be empty',
             'phone_number.numeric' => 'Input in the form of numbers',
-            'role.required' => 'Role cannot be empty',
+            'role.required' => 'Select role',
             'role.in' => 'Invalid role selected',
             'image.image' => 'Photos must be in the correct format'
         ]);
@@ -114,7 +117,8 @@ class UserController extends Controller
         $profile = Auth::user();
         $user = User::find($request->id);
         $enumValues = $this->getEnumValues('users', 'role');
-        return view('user-edit', compact('user', 'enumValues', 'profile'));
+
+        return view('admin.user-edit', compact('user', 'enumValues', 'profile'));
     }
 
     public function update(Request $request)
@@ -140,7 +144,7 @@ class UserController extends Controller
             'password.min' => 'Minimum password must be 6 characters',
             'phone_number.required' => 'Phone number cannot be empty',
             'phone_number.numeric' => 'Input in the form of numbers',
-            'role.required' => 'Role cannot be empty',
+            'role.required' => 'Select role',
             'role.in' => 'Invalid role selected',
             'image.image' => 'Photos must be in the correct format'
         ]);
@@ -168,8 +172,12 @@ class UserController extends Controller
             'password' => $request->password ? bcrypt($request->password) : DB ::raw('password'),
             'phone_number' => $request->phone_number,
             'role' => $request->role,
-            'image' => $fileName
+            // 'image' => $fileName
         ]);
+
+        if ($request->hasFile('image') || $request->old_image == null) {
+            $updateData['image'] = $fileName;
+        }
 
         if ($update) {
             Session::flash('message', 'Data changed successfully');

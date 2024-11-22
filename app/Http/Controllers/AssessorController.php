@@ -15,10 +15,8 @@ class AssessorController extends Controller
     {
         $data['profile'] = Auth::user();
         $data['assessors'] = Assessor::with('users')->where('assessor_type', 'Internal')->get();
-        // $assessors = Assessor::where('assessor_type', 'internal')->get();
 
-        // return view('table-assessorint', compact('assessors'));
-        return view('table-assessorint', $data);
+        return view('admin.table-assessorint', $data);
     }
 
     public function searchInternal(Request $request)
@@ -33,19 +31,18 @@ class AssessorController extends Controller
             });
         })->paginate(10);
 
-        return view('table-assessorint', compact('assessors', 'profile'));
+        return view('admin.table-assessorint', compact('assessors', 'profile'));
     }
 
     public function createInternal()
     {
-        // $user = User::where('role', 'Assessor')->get();
         $profile = Auth::user();
         $user = User::where('role', 'Assessor')
         ->leftJoin('assessors', 'users.id', '=', 'assessors.users_id')
         ->select('users.*', 'assessors.assessor_type')
         ->get();
 
-        return view('assessorint-create', compact('user', 'profile'));
+        return view('admin.assessorint-create', compact('user', 'profile'));
     }
 
     public function editInternal(Request $request)
@@ -54,7 +51,7 @@ class AssessorController extends Controller
         $assessor = Assessor::with('users')->where('assessor_type', 'Internal')->findOrFail($request->id);
         $user = User::where('role', 'Assessor')->get();
 
-        return view('assessorint-edit', compact('assessor', 'user', 'profile'));
+        return view('admin.assessorint-edit', compact('assessor', 'user', 'profile'));
     }
 
     public function updateInternal(Request $request)
@@ -97,14 +94,13 @@ class AssessorController extends Controller
         }
 
         return redirect('table-assessorint');
-
     }
 
     public function external()
     {
         $data['profile'] = Auth::user();
         $data['assessors'] = Assessor::with('users')->where('assessor_type', 'External')->get();
-        return view('table-assessorext', $data);
+        return view('admin.table-assessorext', $data);
     }
 
     public function searchExternal(Request $request)
@@ -120,12 +116,11 @@ class AssessorController extends Controller
         })
         ->paginate(10);
 
-        return view('table-assessorext', compact('assessors', 'profile'));
+        return view('admin.table-assessorext', compact('assessors', 'profile'));
     }
 
     public function createExternal()
     {
-        // $user = User::where('role', 'Assessor')->get();
         $profile = Auth::user();
         $user = User::where('role', 'Assessor')
         ->leftJoin('assessors', 'users.id', '=', 'assessors.users_id')
@@ -141,7 +136,7 @@ class AssessorController extends Controller
         $assessor = Assessor::with('users')->where('assessor_type', 'External')->findOrFail($request->id);
         $user = User::where('role', 'Assessor')->get();
 
-        return view('assessorext-edit', compact('assessor', 'user', 'profile'));
+        return view('admin.assessorext-edit', compact('assessor', 'user', 'profile'));
     }
 
     public function updateExternal(Request $request)
@@ -155,9 +150,6 @@ class AssessorController extends Controller
         ]);
 
         $assessor = Assessor::findOrFail($request->id);
-        if ($assessor->assessor_type != 'External') {
-            return redirect()->route('assessors.index')->with('error', 'Only External assessors can be updated.');
-        }
         
         $update = Assessor::where('id', $request->id)->update([
             'users_id' => $request->users_id,
@@ -184,7 +176,6 @@ class AssessorController extends Controller
         }
 
         return redirect('table-assessorext');
-
     }
 
     public function add(Request $request, $type)

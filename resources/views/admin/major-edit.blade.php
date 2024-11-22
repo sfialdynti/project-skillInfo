@@ -59,7 +59,7 @@
           {{-- USER --}}
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="/table-user">
+          <a class="nav-link" href="/table-user">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg class="text-dark" width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> 
               <title>customer-support</title>
@@ -133,7 +133,7 @@
       </li>
         {{-- MAJOR --}}
         <li class="nav-item">
-          <a class="nav-link" href="/table-major">
+          <a class="nav-link active" href="/table-major">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -196,9 +196,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">User</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Major</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">User</h6>
+          <h6 class="font-weight-bolder mb-0">Major</h6>
         </nav>
       </div>
     </nav>
@@ -208,71 +208,29 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Create User</h6>
+                <h6>Create Major</h6>
             </div>
             <div class="card-body px-4 pt-0 pb-2">
-              <form action="/user/create" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="full_name" class="form-control-label">Full Name</label>
-                    <input class="form-control @error('full_name') is-invalid @enderror" type="text" value="{{ old('full_name') }}" id="full_name" name="full_name">
-                    @error('full_name')
-                      <div class=" invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                  <label for="username" class="form-control-label">Username</label>
-                  <input class="form-control @error('username') is-invalid @enderror" type="text" value="{{ old('username') }}" id="username" name="username">
-                  @error('username')
-                    <div class=" invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group">
-                  <label for="email" class="form-control-label">Email</label>
-                  <input class="form-control @error('email') is-invalid @enderror" type="email" value="{{ old('email') }}" id="email" name="email">
-                  @error('email')
-                    <div class=" invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group">
-                  <label for="password" class="form-control-label">Password</label>
-                  <input class="form-control @error('password') is-invalid @enderror" type="password" value="{{ old('password') }}" id="password" name="password">
-                  @error('password')
-                    <div class=" invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group">
-                  <label for="phone_number" class="form-control-label">Phone Number</label>
-                  <input class="form-control @error('phone_number') is-invalid @enderror" type="tel" value="{{ old('phone_number') }}" id="phone_number" name="phone_number">
-                  @error('phone_number')
-                    <div class=" invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group">
-                  <label for="role" class="form-control-label">Role</label>
-                  <select name="role" id="role" class="w-100 form-control @error('role') is-invalid @enderror">
-                    @foreach ($roles as $value)
-                        <option value="{{ $value }}">{{ ucfirst($value) }}</option>
-                    @endforeach
-                  </select>
-                  @error('role')
-                    <div class=" invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div class="form-group">
-                    <label for="image" class="form-control-label">Image</label>
-                    <div class="input-group">
-                      <input class="form-control @error('image') is-invalid @enderror" type="file" value="" id="image" name="image"  aria-describedby="upload">
-                      <button class="btn btn-outline-primary mb-0" type="button" id="upload">Upload</button>
+                <form action="/major/update/{{ $major->id }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="major_name" class="form-control-label">Major Name</label>
+                        <input class="form-control @error('major_name') is-invalid @enderror" type="text" value="{{ old('major_name', $major->major_name ?? '') }}" id="major_name" name="major_name">
+                        @error('major_name')
+                          <div class=" invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    @error('image')
-                      <div class=" invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mt-5">
-                  <button type="submit" class="btn btn-primary btn-md">Submit</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                      <label for="description" class="form-control-label">Description</label>
+                      <input class="form-control @error('description') is-invalid @enderror" type="text" value="{{ old('description', $major->description ?? '') }}" id="description" name="description">
+                      @error('description')
+                        <div class=" invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+                    <div class="mt-5">
+                      <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                    </div>
+                </form>
             </div>
           </div>
         </div>
