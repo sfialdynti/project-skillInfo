@@ -11,7 +11,7 @@
     <style>
         
         body {
-            background-color: #ea824a;
+            /* background-color: #ea824a; */
             background-image: url('{{ asset('assets/img/background/bg2.jpg') }}');
             background-size: cover;
             background-position: center;

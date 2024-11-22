@@ -78,6 +78,9 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
     Route::post('/assessorext/update/{id}', [AssessorController::class, 'updateExternal'])->name('assessorext.update');
     Route::get('/assessorext/delete/{id}', [AssessorController::class, 'deleteext']);
 
+    Route::get('/table-competency_standard-adm', [CompetencyStandardController::class, 'showCS']);
+    Route::get('/competency_standard-adm/create', [CompetencyStandardController::class, 'createCS']);
+    Route::post('/competency_standard-adm/create', [CompetencyStandardController::class, 'addCS']);
 
 
 });
@@ -85,15 +88,18 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
 Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::get('/dashboardAssessor', [DashboardController::class, 'showass']);
     Route::get('/detail/profile/{id}', [DashboardController::class, 'profileass']);
-
-    Route::get('/table-competency_standard', [CompetencyStandardController::class, 'showCS']);
+    Route::get('/table-competency_standard', [CompetencyStandardController::class, 'show']);
+    Route::post('/table-competency_standard', [CompetencyStandardController::class, 'search']);
     Route::get('/competency_standard/create', [CompetencyStandardController::class, 'create']);
     Route::post('/competency_standard/create', [CompetencyStandardController::class, 'add']);
     Route::get('/competency_standard/edit/{id}', [CompetencyStandardController::class, 'edit']);
     Route::post('/competency_standard/update/{id}', [CompetencyStandardController::class, 'update']);
     Route::get('/competency_standard/delete/{id}', [CompetencyStandardController::class, 'delete']);
 
-    Route::get('/competency-standard/{id}/elements', [CompetencyElementController::class, 'showCE'])->name('competency.elements');
+
+    Route::get('/competency/elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');
+
+    // Route::get('/competency-standard/{id}/elements', [CompetencyElementController::class, 'show'])->name('competency.elements');
 
 
 

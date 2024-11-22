@@ -8,19 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CompetencyElementController extends Controller
 {
-    public function showCE(Request $request)
+    public function show(Request $request, $id)
     {
-        $data['profile'] = Auth::user();
         // $csID = $request->input('competency_standards_id', $request->id);
-        // $competencyStandard = Competency_standard::with('competency_elements')->find($csID);
-        $competencyStandardId = $request->input('competency_standards_id', $request->id);
-        $competencyStandard = Competency_standard::with('competency_elements')->findOrFail($competencyStandardId);
+        // $competencyStandardId = $request->input('competency_standard_id', $request->id);
+        // $competencyStandard = Competency_standard::with('competency_elements')->findOrFail($competencyStandardId);
+        $profile = Auth::user();
+        $competencyStandard = Competency_standard::with('competency_elements')->find($id);
         $allCompetencyStandards = Competency_standard::all();
 
-        return view('competency.elements',[
+        return view('assessor.table-competency_element',[
             'cs' => $competencyStandard,
             'element' => $competencyStandard->competency_elements,
-            'all' => $allCompetencyStandards
+            'all' => $allCompetencyStandards,
+            'profile' => $profile
         ]);
     }
 }

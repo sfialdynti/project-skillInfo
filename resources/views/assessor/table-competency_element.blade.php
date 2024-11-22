@@ -148,29 +148,26 @@
               </button>
               </a>
             </div>
+            <form method="GET" action="{{ route('competency.elements', ['id' => $cs->id]) }}" class="mx-4">
+        <label for="competency_standards">Pilih Competency Standard:</label>
+        <select name="competency_standards_id" id="competency_standards" class="form-control" onchange="this.form.submit()">
+            @foreach ($all as $standard)
+                <option value="{{ $standard->id }}" {{ $cs->id == $standard->id ? 'selected' : '' }}>
+                    {{ $standard->code_unit }} - {{ $standard->title_unit }}
+                </option>
+            @endforeach
+        </select>
+    </form>
             @if ($element->isEmpty())
-            <p class="ms-4 text-danger">No Competency Standard found.</p>
+            <p class="ms-4 text-danger">No Competency Elements found.</p>
             @else
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
-                <form method="GET" action="{{ route('competency.elements', ['id' => $competencyStandard->id]) }}">
-                    <label for="competency_standard">Pilih Competency Standard:</label>
-                    <select name="competency_standard_id" id="competency_standard" class="form-control" onchange="this.form.submit()">
-                        @foreach ($allCompetencyStandards as $standard)
-                            <option value="{{ $standard->id }}" {{ $competencyStandard->id == $standard->id ? 'selected' : '' }}>
-                                {{ $standard->code_unit }} - {{ $standard->title_unit }}
-                            </option>
-                        @endforeach
-                    </select>
-                </form>
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Unit Code</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Title</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Major</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Criteria</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
@@ -182,16 +179,7 @@
                         <p class="text-xs font-weight-bold mb-0">{{ $key+1 }}</p>
                     </td>
                     <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->unit_code }}</p>
-                    </td>
-                    <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $item->unit_title }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->unit_description }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->majors->major_name }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ $item->criteria }}</p>
                     </td>
                     <td class="align-middle text-center">
                         <a href="competency_standard/edit/{{ $item->id }}" class="text-secondary font-weight-bold text-info me-3" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">

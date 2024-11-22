@@ -17,6 +17,6 @@ class Competency_element extends Model
 
     public function competency_standards()
     {
-        return $this->belongsTo(Competency_standard::class);
+        return $this->belongsTo(Competency_standard::class, 'competency_standards_id');
     }
 }

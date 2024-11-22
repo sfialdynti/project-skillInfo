@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/assets/img/apple-icon.png') }}">
+  <link rel="apple-touch-icon" sizes="76x76" href=" {{ asset('/assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" href="{{ asset('/assets/img/favicon.png') }}">
   <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
   <title>
@@ -18,7 +18,7 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('/assets/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -38,7 +38,7 @@
       <ul class="navbar-nav">
         {{-- DASHBOARD --}}
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard">
+          <a class="nav-link active" href="/dashboard">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>shop </title>
@@ -82,7 +82,7 @@
       </li>
       {{-- STUDENT --}}
       <li class="nav-item">
-        <a class="nav-link active" href="/table-student">
+        <a class="nav-link" href="/table-student">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg class="text-dark" width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> 
             <title>customer-support</title>
@@ -152,6 +152,18 @@
             <span class="nav-link-text ms-1">Majors</span>
           </a>
         </li>
+        {{-- COMPETENCY STANDARD --}}
+        <li class="nav-item">
+          <a class="nav-link" href="/table-competency_standard">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Competency Standard</span>
+          </a>
+        </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -188,6 +200,7 @@
         </li>
       </ul>
     </div>
+
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -196,108 +209,260 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Student</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Student</h6>
+          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <form action="/table-student" method="post">
-              @csrf
-              <div class="input-group">
-                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                <input type="search" class="form-control" placeholder="Type here..." name="search">
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="pb-0 d-flex justify-content-between">
-            <a href="/student/create" class="text-info" style="font-size: 15px; width: 100%;">
-            <button type="button" class="btn btn-primary w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
-              </svg>
-                Add Student
-            </button>
-            </a>
-          </div>
-          <div class="card mb-4">
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NISN</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Grade</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Major</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($student as $key => $item)
-                    <tr>
-                    <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ $key+1 }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->nisn }}</p>
-                    </td>
-                    <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="{{ asset('storage/image/'.$item->users->image) }}" class="avatar avatar-sm me-3" alt="user1">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $item->users->full_name }}</h6>
-                            <p class="text-xs text-secondary mb-0">{{ $item->users->email }}</p>
-                          </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Create Competency Standard</h6>
+                </div>
+                <div class="card-body px-4 pt-0 pb-2">
+                    <form action="/competency_standard-adm/create" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="unit_code" class="form-control-label">Unit Code</label>
+                            <input class="form-control @error('unit_code') is-invalid @enderror" type="text" value="{{ old('unit_code') }}" id="unit_code" name="unit_code">
+                            @error('unit_code')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                    </td>
-                    <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $item->grade_level }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->majors->major_name }}</p>
-                    </td>
-                    <td class="align-middle text-center">
-                        <a href="student/edit/{{ $item->id }}" class="text-secondary font-weight-bold text-info me-3" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                          </svg>
-                        </a>
-                        <a href="student/delete/{{ $item->id }}" class="text-secondary font-weight-bold text-danger" onclick="return window.confirm('Are you sure to delete this data?')" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                          </svg>
-                        </a>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>  
-                </table>
-              </div>
+                        <div class="form-group">
+                            <label for="unit_title" class="form-control-label">Unit Title</label>
+                            <input class="form-control @error('unit_title') is-invalid @enderror" type="text" value="{{ old('unit_title') }}" id="unit_title" name="unit_title">
+                            @error('unit_title')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="unit_description" class="form-control-label">Unit Description</label>
+                            <textarea class="form-control @error('unit_description') is-invalid @enderror" id="unit_description" name="unit_description" rows="4">{{ old('unit_description') }}</textarea>
+                            {{-- <input class="form-control @error('unit_description') is-invalid @enderror" type="text" value="{{ old('unit_description') }}" id="unit_description" name="unit_description"> --}}
+                            @error('unit_description')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="major" class="form-control-label">Major</label>
+                            <select class="form-control @error('majors_id') is-invalid @enderror" id="major" name="majors_id">
+                            <option value="" disabled selected>Select a major</option>
+                            @foreach ($major as $item)
+                                <option value="{{ $item->id }}" {{ old('majors_id') == $item->id ? 'selected' : '' }}>
+                                    {{ $item->major_name }}
+                                </option>
+                            @endforeach
+                          </select>
+                          @error('majors_id')
+                            <div class=" invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="assessor" class="form-control-label">Assessor</label>
+                            <select class="form-control @error('assessors_id') is-invalid @enderror" id="major" name="assessors_id">
+                            <option value="" disabled selected>Select a assessor</option>
+                            @foreach ($assessor as $item)
+                                <option value="{{ $item->id }}" {{ old('assessors_id') == $item->id ? 'selected' : '' }}>
+                                  {{ $item->users->full_name }}
+                                </option>
+                            @endforeach
+                            </select>
+                            @error('majors_id')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <input type="hidden" name="assessors_id" value="{{ Auth::id() }}">
+                        <div class="mt-5">
+                          <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   </main>
   <!--   Core JS Files   -->
-  <script src=" {{ asset('/assets/js/core/popper.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
   <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
-  <script src=" {{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
-  <script src=" {{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/plugins/chartjs.min.js') }}"></script>
+  <script>
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          label: "Sales",
+          tension: 0.4,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+          backgroundColor: "#fff",
+          data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+          maxBarThickness: 6
+        }, ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+            },
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 500,
+              beginAtZero: true,
+              padding: 15,
+              font: {
+                size: 14,
+                family: "Inter",
+                style: 'normal',
+                lineHeight: 2
+              },
+              color: "#fff"
+            },
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false
+            },
+            ticks: {
+              display: false
+            },
+          },
+        },
+      },
+    });
+
+
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+
+    new Chart(ctx2, {
+      type: "line",
+      data: {
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+            label: "Mobile apps",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#cb0c9f",
+            borderWidth: 3,
+            backgroundColor: gradientStroke1,
+            fill: true,
+            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+            maxBarThickness: 6
+
+          },
+          {
+            label: "Websites",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#3A416F",
+            borderWidth: 3,
+            backgroundColor: gradientStroke2,
+            fill: true,
+            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+            maxBarThickness: 6
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#b2b9bf',
+              font: {
+                size: 11,
+                family: "Inter",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#b2b9bf',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Inter",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -310,9 +475,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src=" {{ asset('/assets/js/soft-ui-dashboard.min.js?v=1.1.0') }}"></script>
-  <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/soft-ui-dashboard.min.js?v=1.1.0') }}"></script>
 </body>
 
 </html>

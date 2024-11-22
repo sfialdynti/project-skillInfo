@@ -17,7 +17,7 @@ class Major extends Model
 
     public function competency_standards()
     {
-        return $this->hasMany(Competency_standard::class);
+        return $this->hasMany(Competency_standard::class, 'majors_id');
     }
 
 }

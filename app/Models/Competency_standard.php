@@ -12,12 +12,12 @@ class Competency_standard extends Model
 
     public function competency_elements()
     {
-        return $this->hasMany(Competency_element::class);
+        return $this->hasMany(Competency_element::class, 'competency_standards_id');
     }
 
     public function majors()
     {
-        return $this->belongsTo(Major::class);
+        return $this->belongsTo(Major::class, 'majors_id');
     }
 
     public function assessors()
