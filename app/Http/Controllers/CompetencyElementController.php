@@ -12,22 +12,11 @@ class CompetencyElementController extends Controller
 {
     public function show($id)
     {
-        // $csID = $request->input('competency_standards_id', $request->id);
-        // $competencyStandardId = $request->input('competency_standard_id', $request->id);
-        // $competencyStandard = Competency_standard::with('competency_elements')->findOrFail($competencyStandardId);
         $profile = Auth::user();
-        // $competencyStandard = Competency_standard::with('competency_elements')->find($id);
         $all = Competency_standard::all();
         $cs = Competency_standard::findOrFail($id);
         $ce = Competency_element::where('competency_standards_id', $id)->get();
 
-
-        // return view('assessor.table-competency_element',[
-        //     'cs' => $competencyStandard,
-        //     'element' => $competencyStandard->competency_elements,
-            // 'all' => $allCompetencyStandards,
-        //     'profile' => $profile
-        // ]);
         return view('assessor.table-competency_element', compact('cs', 'ce', 'profile', 'all'));
     }
 
@@ -62,5 +51,48 @@ class CompetencyElementController extends Controller
         }
 
         return redirect()->route('competency.elements', ['id' => $request->competency_standards_id]);
+    }
+
+    public function edit(Request $request)
+    {
+        $data['profile'] = Auth::user();
+        $data['ce'] = Competency_element::find($request->id);
+
+        return view('assessor.competency_element-edit', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $ce = Competency_element::findOrFail($request->id);
+        $request->validate([
+            'criteria' => 'required'
+        ], [
+            'criteria.required' => 'Criteria cannot be empty'
+        ]);
+
+        $update = Competency_element::where('id', $request->id)->update([
+            'criteria' => $request->criteria
+        ]);
+
+        if ($update) {
+            Session::flash('message', 'Data changed successfully');
+        } else {
+            Session::flash('message', 'Data failed to change');
+        }
+
+        return redirect()->route('competency.elements', ['id' => $ce->competency_standards_id]);
+    }
+
+    public function delete(Request $request)
+    {
+        Competency_element::find($request->id);
+        $delete = Competency_element::where('id', $request->id)->delete();
+        if ($delete) {
+            Session::flash('message', 'Data deleted successfully');
+        }else{
+            Session::flash('message', 'Data failed to delete');
+        }
+
+        return redirect()->back();
     }
 }
