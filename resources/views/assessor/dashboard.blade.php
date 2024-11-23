@@ -216,7 +216,7 @@
                         </g> 
                       </svg>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        {{ $total_ce }}
+                        {{-- {{ $total_ce }} --}}
                       </h5>
                       <span class="text-white text-sm">Competency Element</span>
                     </div>

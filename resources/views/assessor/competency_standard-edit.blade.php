@@ -153,8 +153,8 @@
                     <div class="form-group">
                       <label for="major" class="form-control-label">Major</label>
                       <select class="form-control @error('majors_id') is-invalid @enderror" id="major" name="majors_id">
+                        <option value="" disabled selected>Select a major</option>
                       @foreach ($major as $item)
-                          <option value="" disabled selected>Select a major</option>
                           <option value="{{ $item->id }}" {{ $item->id == $cs->majors_id ? 'selected' : '' }}>
                             {{ $item->major_name }}
                           </option>

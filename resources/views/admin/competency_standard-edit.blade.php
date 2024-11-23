@@ -224,26 +224,25 @@
                     <h6>Create Competency Standard</h6>
                 </div>
                 <div class="card-body px-4 pt-0 pb-2">
-                    <form action="/competency_standard-adm/create" method="POST" enctype="multipart/form-data">
+                    <form action="/competency_standard-adm/update/{{ $cs->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="unit_code" class="form-control-label">Unit Code</label>
-                            <input class="form-control @error('unit_code') is-invalid @enderror" type="text" value="{{ old('unit_code') }}" id="unit_code" name="unit_code">
+                            <input class="form-control @error('unit_code') is-invalid @enderror" type="text" value="{{ old('unit_code', $cs->unit_code ?? '') }}" id="unit_code" name="unit_code">
                             @error('unit_code')
                               <div class=" invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="unit_title" class="form-control-label">Unit Title</label>
-                            <input class="form-control @error('unit_title') is-invalid @enderror" type="text" value="{{ old('unit_title') }}" id="unit_title" name="unit_title">
+                            <input class="form-control @error('unit_title') is-invalid @enderror" type="text" value="{{ old('unit_title', $cs->unit_title ?? '') }}" id="unit_title" name="unit_title">
                             @error('unit_title')
                               <div class=" invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="unit_description" class="form-control-label">Unit Description</label>
-                            <textarea class="form-control @error('unit_description') is-invalid @enderror" id="unit_description" name="unit_description" rows="4">{{ old('unit_description') }}</textarea>
-                            {{-- <input class="form-control @error('unit_description') is-invalid @enderror" type="text" value="{{ old('unit_description') }}" id="unit_description" name="unit_description"> --}}
+                            <textarea class="form-control @error('unit_description') is-invalid @enderror" id="unit_description" name="unit_description" rows="4">{{ old('unit_description', $cs->unit_description ?? '') }}</textarea>
                             @error('unit_description')
                               <div class=" invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -253,7 +252,7 @@
                             <select class="form-control @error('majors_id') is-invalid @enderror" id="major" name="majors_id">
                             <option value="" disabled selected>Select a major</option>
                             @foreach ($major as $item)
-                                <option value="{{ $item->id }}" {{ old('majors_id') == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}" {{ $item->id == $cs->majors_id ? 'selected' : '' }}>
                                     {{ $item->major_name }}
                                 </option>
                             @endforeach
@@ -267,7 +266,7 @@
                             <select class="form-control @error('assessors_id') is-invalid @enderror" id="assessor" name="assessors_id">
                             <option value="" disabled selected>Select a assessor</option>
                             @foreach ($assessor as $item)
-                                <option value="{{ $item->id }}" {{ old('assessors_id') == $item->id ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}" {{ $item->id == $cs->assessors_id ? 'selected' : '' }}>
                                   {{ $item->users->full_name }}
                                 </option>
                             @endforeach

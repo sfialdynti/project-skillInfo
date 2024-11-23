@@ -149,12 +149,30 @@ class CompetencyStandardController extends Controller
         $data['profile'] = Auth::user();
         $data['cs'] = Competency_standard::orderby('unit_code', 'asc')->get();
 
-        return view('admin.table-competency_standard', $data);
+        return view('admin.table-competency_standard-adm', $data);
     }
 
     public function searchCS(Request $request)
     {
+        $data['profile'] = Auth::user();
+        $userId = Auth::id();
 
+
+        $search = $request->input('search');
+        $query = Competency_standard::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('unit_code', 'LIKE', '%' . $search . '%')
+                  ->orWhere('unit_title', 'LIKE', '%' . $search . '%')
+                  ->orWhereHas('majors', function ($q) use ($search) {
+                    $q->where('major_name', 'LIKE', '%' . $search . '%');
+                });
+            });
+        }
+
+        $data['cs'] = $query->orderby('unit_code', 'asc')->paginate(10)->appends(['search' => $search]);
+        return view('admin.table-competency_standard-adm', $data);
     }
 
     public function createCS()
@@ -168,16 +186,63 @@ class CompetencyStandardController extends Controller
 
     public function addCS(Request $request)
     {
-        Competency_standard::findOrFail($request->id);
         $request->validate([
             'unit_code' => ['required', 'max:32', 'unique:competency_standards,unit_code'],
+            'unit_title' => ['required', 'max:64'],
+            'unit_description' => 'required',
+            'majors_id' => ['required', 'exists:majors,id'],
+            'assessors_id' => ['required', 'exists:assessors,id']
+        ], [
+            'unit_code.required' => 'Unit code cannot be empty',
+            'unit_code.max' => 'Maximum 32 characters',
+            'unit_code.unique' => 'This unit code is already taken',
+            'unit_title.required' => 'Unit title cannot be empty',
+            'unit_title.max' => 'Maximum 64 characters',
+            'unit_description.required' => 'Unit description cannot be empty',
+            'majors_id.required' => 'Assessor cannot be empty',
+            'majors_id.exists' => 'The selected major does not exist',
+            'assessors_id.required' => 'Assessor cannot be empty',
+            'assessors_id.exists' => 'The selected assessor does not exist',
+        ]);
+
+        $cs = Competency_standard::create([
+            'unit_code' => $request->unit_code,
+            'unit_title' => $request->unit_title,
+            'unit_description' => $request->unit_description,
+            'majors_id' => $request->majors_id,
+            'assessors_id' => $request->assessors_id
+        ]);
+
+        if ($cs) {
+            Session::flash('message', 'Data changed successfully');
+        } else {
+            Session::flash('message', 'Data failed to change');
+        }
+
+        return redirect('table-competency_standard-adm');
+    }
+
+    public function editCS(Request $request)
+    {
+        $data['profile'] = Auth::user();
+        $data['cs'] = Competency_standard::find($request->id);
+        $data['major'] = Major::all();
+        $data['assessor'] = Assessor::all();
+
+        return view('admin.competency_standard-edit', $data);
+    }
+
+    public function updateCS(Request $request)
+    {
+        Competency_standard::findOrFail($request->id);
+        $request->validate([
+            'unit_code' => ['required', 'max:32'],
             'unit_title' => ['required', 'max:64'],
             'unit_description' => 'required',
             'majors_id' => 'required',
         ], [
             'unit_code.required' => 'Unit code cannot be empty',
             'unit_code.max' => 'Maximum 32 characters',
-            'unit_code.unique' => 'This unit code is already taken',
             'unit_title.required' => 'Unit title cannot be empty',
             'unit_title.max' => 'Maximum 64 characters',
             'unit_description.required' => 'Unit description cannot be empty',
@@ -189,6 +254,7 @@ class CompetencyStandardController extends Controller
             'unit_title' => $request->unit_title,
             'unit_description' => $request->unit_description,
             'majors_id' => $request->majors_id,
+            'assessors_id' => $request->assessors_id
         ]);
 
         if ($update) {
@@ -197,6 +263,21 @@ class CompetencyStandardController extends Controller
             Session::flash('message', 'Data failed to change');
         }
 
-        return redirect('table-competency_standard');
+        return redirect('table-competency_standard-adm');
     }
+
+    public function deleteCS(Request $request)
+    {
+        Competency_standard::find($request->id);
+        $delete = Competency_standard::where('id', $request->id)->delete();
+        if ($delete) {
+            Session::flash('message', 'Data deleted successfully');
+        }else{
+            Session::flash('message', 'Data failed to delete');
+        }
+
+        return redirect('table-competency_standard-adm');
+    }
+
+    
 }

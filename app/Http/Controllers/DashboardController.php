@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessor;
 use App\Models\Competency_element;
 use App\Models\Competency_standard;
 use App\Models\Major;
@@ -21,7 +22,8 @@ class DashboardController extends Controller
         $data = [
             'total_user' => User::count(),
             'total_student' => Student::count(),
-            'total_major' => Major::count()
+            'total_major' => Major::count(),
+            'total_ass' => Assessor::count()
         ];
         // return view('dashboard', compact('user'));
         return view('admin.dashboard', ['user' => $user] + $data);
@@ -91,9 +93,13 @@ class DashboardController extends Controller
     public function showass()
     {
         $user = Auth::user();
+        $assessorId = $user->id;
+
         $data = [
-            'total_cs' => Competency_standard::count(),
-            'total_ce' => Competency_element::count()
+            // 'total_cs' => Competency_standard::count(),
+            // 'total_ce' => Competency_element::count()
+          'total_cs' => Competency_standard::where('assessors_id', $assessorId)->count(),
+        // 'total_ce' => Competency_element::where('assessors_id', $assessorId)->count(),
         ];
 
         return view('assessor.dashboard', ['user' => $user] + $data);

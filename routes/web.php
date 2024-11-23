@@ -79,8 +79,14 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
     Route::get('/assessorext/delete/{id}', [AssessorController::class, 'deleteext']);
 
     Route::get('/table-competency_standard-adm', [CompetencyStandardController::class, 'showCS']);
+    Route::post('/table-competency_standard-adm', [CompetencyStandardController::class, 'searchCS']);
     Route::get('/competency_standard-adm/create', [CompetencyStandardController::class, 'createCS']);
     Route::post('/competency_standard-adm/create', [CompetencyStandardController::class, 'addCS']);
+    Route::get('/competency_standard-adm/edit/{id}', [CompetencyStandardController::class, 'editCS']);
+    Route::post('/competency_standard-adm/update/{id}', [CompetencyStandardController::class, 'updateCS']);
+    Route::get('/competency_standard-adm/delete/{id}', [CompetencyStandardController::class, 'deleteCS']);
+
+
 
 
 });
@@ -96,8 +102,14 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::post('/competency_standard/update/{id}', [CompetencyStandardController::class, 'update']);
     Route::get('/competency_standard/delete/{id}', [CompetencyStandardController::class, 'delete']);
 
+    // Route::get('/competency_elements/create/{competency_standard_id}', [CompetencyElementController::class, 'create'])->name('competency.elements.create');
 
-    Route::get('/competency/elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');
+
+    // Route::get('/competency/elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');
+
+    Route::get('/competency_elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');
+    Route::get('/competency_elements/create/{competency_standards_id}', [CompetencyElementController::class, 'create'])->name('competency.elements.create');
+    Route::post('/competency_elements/add', [CompetencyElementController::class, 'add'])->name('competency.elements.add');
 
     // Route::get('/competency-standard/{id}/elements', [CompetencyElementController::class, 'show'])->name('competency.elements');
 
