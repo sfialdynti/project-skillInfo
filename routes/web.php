@@ -119,6 +119,10 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     // Route::get('/competency-standard/{id}/elements', [CompetencyElementController::class, 'show'])->name('competency.elements');
  
     Route::get('/table-exam', [ExaminationController::class, 'show']);
-
-
+    Route::get('/exam/create', [ExaminationController::class, 'create']);
+    Route::post('/exam/create', [ExaminationController::class, 'add']);
+    Route::get('/exam/edit/{id}', [ExaminationController::class, 'edit']);
+    Route::post('/exam/update/{id}', [ExaminationController::class, 'edit']);
+    Route::get('/exam/delete/{id}', [ExaminationController::class, 'delete']);
+    
 });

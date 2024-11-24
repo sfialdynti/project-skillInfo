@@ -18,7 +18,7 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('/assets/css/soft-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -26,7 +26,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white" id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
@@ -57,8 +57,10 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+
+        {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
-          <a class="nav-link" href="/table-competency_standard">
+          <a class="nav-link active" href="/table-competency_standard">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                 <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
@@ -69,23 +71,10 @@
           </a>
         </li>
 
-        {{-- ASSESSMENT --}}
-        <li class="nav-item">
-            <a class="nav-link active" href="/table-exam">
-              <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                  <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                </svg>
-              </div>
-              <span class="nav-link-text ms-1">Assessment</span>
-            </a>
-        </li>
-        
+        {{-- ACCOUNT PAGE --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
-        {{-- PROFILE --}}
         <li class="nav-item">
           <a class="nav-link" href="/detail/profile/{{ $profile->id }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -107,7 +96,6 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
-        {{-- LOGOUT --}}
         <li class="nav-item">
           <a class="nav-link" href="/logout">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -132,88 +120,59 @@
           </ol>
           <h6 class="font-weight-bolder mb-0">Competency Standard</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <form action="/table-competency_standard" method="post">
-              @csrf
-              <div class="input-group">
-                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                <input type="search" class="form-control" placeholder="Type here..." name="search">
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
-          <div class="pb-0 d-flex justify-content-between">
-            <a href="/exam/create" class="text-info" style="font-size: 15px; width: 100%;">
-            <button type="button" class="btn btn-primary w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
-              </svg>
-                Add Exam
-            </button>
-            </a>
-          </div>
-          <div class="card mb-4 pt-3">
-            @if ($exam->isEmpty())
-            <p class="ms-4 text-danger">No Exam found.</p>
-            @else
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Exam Date</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NISN</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Criteria</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($exam as $key => $item)
-                    <tr>
-                    <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0">{{ $key+1 }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->exam_date }}</p>
-                    </td>
-                    <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $item->students->nisn }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->competency_elements->criteria }}</p>
-                    </td>
-                    <td class="align-middle text-center">
-                        <a href="exam/edit/{{ $item->id }}" class="text-secondary font-weight-bold text-info me-3" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                          </svg>
-                        </a>
-                        <a href="exam/delete/{{ $item->id }}" class="text-secondary font-weight-bold text-danger" onclick="return window.confirm('Are you sure to delete this data?')" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                          </svg>
-                        </a>
-                    </td>
-                  </tr>
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h6>Create Competency Standard</h6>
+            </div>
+            <div class="card-body px-4 pt-0 pb-2">
+              <form action="/exam/update/{{ $exam->id }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                  <label for="exam_date" class="form-control-label">Exam Date</label>
+                  <input class="form-control @error('exam_date') is-invalid @enderror" type="date" value="{{  old('exam_date', \Carbon\Carbon::parse($exam->exam_date)->format('Y-m-d') ?? '') }}" id="exam_date" name="exam_date">
+                  @error('exam_date')
+                    <div class=" invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="students_id" class="form-control-label">Student</label>
+                  <select class="form-control @error('students_id') is-invalid @enderror" name="students_id" id="students_id">
+                    <option value="" disabled selected>Select a student</option>
+                    @foreach ($student as $item)
+                    <option value="{{ $item->id }}" {{ old('students_id', $exam->students_id) == $item->id ? 'selected' : '' }}>
+                      {{ $item->users->full_name }}
+                    </option>
                     @endforeach
-                  </tbody>  
-                </table>
-              </div>
+                  </select>
+                    @error('students_id')
+                      <div class=" invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                  <label for="competency_elements_id" class="form-control-label">Competency element</label>
+                    @foreach ($ce as $item)
+                        <div>
+                          <input type="checkbox" name="competency_elements_id[]" value="{{ $item->id }}" {{ (is_array(old('competency_elements_id')) && in_array($item->id, old('competency_elements_id'))) ? 'checked' : '' }}>
+                          {{ $item->criteria }}
+                        </div>
+                    @endforeach
+                    @error('competency_elements_id')
+                      <div class=" invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mt-5">
+                  <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                </div>
+            </form>
             </div>
           </div>
         </div>
-        @endif
       </div>
     </div>
   </main>
