@@ -108,7 +108,8 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
 
     // Route::get('/competency/elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');
 
-    Route::get('/competency_elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');    Route::get('/competency_elements/create/{competency_standards_id}', [CompetencyElementController::class, 'create'])->name('competency.elements.create');
+    Route::get('/competency_elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');   
+     Route::get('/competency_elements/create/{competency_standards_id}', [CompetencyElementController::class, 'create'])->name('competency.elements.create');
     Route::post('/competency_elements/add', [CompetencyElementController::class, 'add'])->name('competency.elements.add');
     Route::get('/competency_elements/edit/{id}', [CompetencyElementController::class, 'edit'])->name('competency.elements.edit');
     Route::post('/competency_elements/update/{id}', [CompetencyElementController ::class, 'update']);
