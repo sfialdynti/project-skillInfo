@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('students_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('assessors_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('competency_elements_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->tinyInteger('status');
-            $table->longText('comments');
+            $table->tinyInteger('status')->nullable();
+            $table->longText('comments')->nullable();
             $table->timestamps();
         });
     }

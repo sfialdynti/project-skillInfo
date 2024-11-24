@@ -71,7 +71,7 @@
 
         {{-- ASSESSMENT --}}
         <li class="nav-item">
-            <a class="nav-link active" href="/table-assessment">
+            <a class="nav-link active" href="/table-exam">
               <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                   <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
@@ -150,7 +150,7 @@
       <div class="row">
         <div class="col-12">
           <div class="pb-0 d-flex justify-content-between">
-            <a href="/competency_standard/create" class="text-info" style="font-size: 15px; width: 100%;">
+            <a href="/assessment/create" class="text-info" style="font-size: 15px; width: 100%;">
             <button type="button" class="btn btn-primary w-100">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                 <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
@@ -160,8 +160,8 @@
             </button>
             </a>
           </div>
-          <div class="card mb-4">
-            @if ($cs->isEmpty())
+          <div class="card mb-4 pt-3">
+            @if ($exam->isEmpty())
             <p class="ms-4 text-danger">No Competency Standard found.</p>
             @else
             <div class="card-body px-0 pt-0 pb-2">
@@ -180,22 +180,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($cs as $key => $item)
+                    @foreach ($assessment as $key => $item)
                     <tr>
                     <td class="align-middle text-center">
                         <p class="text-xs font-weight-bold mb-0">{{ $key+1 }}</p>
                     </td>
                     <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->unit_code }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ $item->exam_date }}</p>
                     </td>
                     <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $item->unit_title }}</p>
-                    </td>
-                    <td class="align-middle">
-                        <p class="text-xs font-weight-bold mb-0">{{ $item->unit_description }}</p>
+                      <p class="text-xs font-weight-bold mb-0">{{ $item->students->nisn }}</p>
                     </td>
                     <td class="align-middle">
                         <p class="text-xs font-weight-bold mb-0">{{ $item->majors->major_name }}</p>
+                    </td>
+                    <td class="align-middle">
+                        <p class="text-xs font-weight-bold mb-0">{{ $item->status }}</p>
                     </td>
                     <td class="align-middle text-center">
                       <a href="{{ route('competency.elements', ['id' => $item->id]) }}" class="btn btn-primary">

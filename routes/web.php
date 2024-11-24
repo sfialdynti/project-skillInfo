@@ -5,6 +5,7 @@ use App\Http\Controllers\AssessorController;
 use App\Http\Controllers\CompetencyElementController;
 use App\Http\Controllers\CompetencyStandardController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExaminationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudentController;
@@ -109,14 +110,15 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     // Route::get('/competency/elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');
 
     Route::get('/competency_elements/{id}', [CompetencyElementController::class, 'show'])->name('competency.elements');   
-     Route::get('/competency_elements/create/{competency_standards_id}', [CompetencyElementController::class, 'create'])->name('competency.elements.create');
+    Route::get('/competency_elements/create/{competency_standards_id}', [CompetencyElementController::class, 'create'])->name('competency.elements.create');
     Route::post('/competency_elements/add', [CompetencyElementController::class, 'add'])->name('competency.elements.add');
     Route::get('/competency_elements/edit/{id}', [CompetencyElementController::class, 'edit'])->name('competency.elements.edit');
     Route::post('/competency_elements/update/{id}', [CompetencyElementController ::class, 'update']);
     Route::get('/competency_element/delete/{id}', [CompetencyElementController::class, 'delete'])->name('competency.elements.delete');
 
     // Route::get('/competency-standard/{id}/elements', [CompetencyElementController::class, 'show'])->name('competency.elements');
-
+ 
+    Route::get('/table-exam', [ExaminationController::class, 'show']);
 
 
 });

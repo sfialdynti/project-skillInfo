@@ -222,8 +222,8 @@
                     </div>
                     <div class="form-group">
                         <label for="grade_level" class="form-control-label">Grade Level</label>
+                        <option value="" disabled selected>Select a grade</option>
                         <select name="grade_level" id="grade_level" class="form-control">
-                            <option value="" disabled selected>Select a grade</option>
                             <option value="10" {{ old('grade_level') == 10 ? 'selected' : '' }}>Grade 10</option>
                             <option value="11" {{ old('grade_level') == 11 ? 'selected' : '' }}>Grade 11</option>
                             <option value="12" {{ old('grade_level') == 12 ? 'selected' : '' }}>Grade 12</option>

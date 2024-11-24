@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Assessor;
 use App\Models\Competency_element;
+use App\Models\Examination;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,18 @@ class ExaminationController extends Controller
         $assessor = Assessor::where('users_id', $userId)->first();
         // $data['ce'] = Competency_element::where('assessors_id', $assessor->id);
         $data['ce'] = Competency_element::whereHas('competency_standards', function ($query) use ($assessor) {
-            $query->where('assessor_id', $assessor->id);
-        })->with('assessments')->get();
+            $query->where('assessors_id', $assessor->id);
+        })->with('examinations')->get();
 
-        return view('assessor.table-assessment', $data);
+        $data['exam'] = Examination::orderby('exam_date', 'asc')->get();
+        $data['exam'] = Examination::paginate(10);
+
+        return view('assessor.table-exam', $data);
+
+    }
+
+    public function create()
+    {
 
     }
 

@@ -12,7 +12,7 @@ class Competency_element extends Model
 
     public function examinations()
     {
-        return $this->hasMany(Examination::class);
+        return $this->hasMany(Examination::class, 'competency_elements_id');
     }
 
     public function competency_standards()

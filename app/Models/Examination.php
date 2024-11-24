@@ -22,7 +22,7 @@ class Examination extends Model
 
     public function competency_elements()
     {
-        return $this->belongsTo(Competency_element::class);
+        return $this->belongsTo(Competency_element::class, 'competency_elements_id');
     }
 
 }
