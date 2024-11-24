@@ -12,7 +12,7 @@ class Examination extends Model
 
     public function students()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'students_id');
     }
 
     public function assessors()

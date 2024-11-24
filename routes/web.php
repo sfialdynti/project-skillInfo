@@ -1,6 +1,7 @@
 `<?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AssessorController;
 use App\Http\Controllers\CompetencyElementController;
 use App\Http\Controllers\CompetencyStandardController;
@@ -124,5 +125,10 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::get('/exam/edit/{id}', [ExaminationController::class, 'edit']);
     Route::post('/exam/update/{id}', [ExaminationController::class, 'edit']);
     Route::get('/exam/delete/{id}', [ExaminationController::class, 'delete']);
+
+    Route::get('/liststudent', [AssessmentController::class, 'listStudent'])->name('assessor.table-assessment');
+    Route::get('/assess-student/{id}', [AssessmentController::class, 'assessStudent'])->name('assess-student');
+    Route::post('/submit-assessment/{id}', [AssessmentController::class, 'submitAssessment'])->name('submit-assessment');
+
     
 });

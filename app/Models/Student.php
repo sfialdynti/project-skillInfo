@@ -17,7 +17,7 @@ class Student extends Model
 
     public function examinations()
     {
-        return $this->hasMany(Examination::class);
+        return $this->hasMany(Examination::class, 'students_id');
     }
 
     public function majors()
