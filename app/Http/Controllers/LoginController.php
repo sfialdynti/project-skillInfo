@@ -30,10 +30,11 @@ class LoginController extends Controller
                 return redirect('/dashboard');
             } elseif (Auth::user()->role == 'Assessor') {
                 return redirect('/dashboardAssessor');
+            } elseif (Auth::user()->role == 'Student') {
+                return redirect('/dashboardStudent');
             } else {
-                return redirect('/dashboard');
+                return redirect('/');
             }
-
             // return redirect('/dashboard');
         }
 

@@ -143,7 +143,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($ce as $key => $item)
+                                @foreach ($examinations as $key => $item)
                                     <tr>
                                         <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0">{{ $key+1 }}</p>
@@ -152,11 +152,11 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->competency_elements->criteria }}</p>
                                         </td>
                                         <td>
-                                            <input type="radio" name="competency[{{ $item->id }}]" value="1" required> Kompeten
-                                            <input type="radio" name="competency[{{ $item->id }}]" value="0" required> Tidak Kompeten
+                                            <input type="radio" name="competency_elements[{{ $item->competency_elements_id }}]" value="1" @if($item->status == 1) checked @endif required> Kompeten
+                                            <input type="radio" name="competency_elements[{{ $item->competency_elements_id }}]" value="0" @if($item->status == 0) checked @endif required> Tidak Kompeten
                                         </td>
                                         <td>
-                                            <textarea name="comments[{{ $item->id }}]" class="form-control"></textarea>
+                                            <textarea name="comments[{{ $item->competency_elements_id }}]" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 @endforeach
