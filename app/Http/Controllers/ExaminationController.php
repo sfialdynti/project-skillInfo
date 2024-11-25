@@ -141,4 +141,60 @@ class ExaminationController extends Controller
         return redirect('/table-exam');
     }
 
+    public function showExam()
+    {
+        $data['profile'] = Auth::user();
+        $data['student'] = Student::all();
+        $data['assessor'] = Assessor::all();
+        $data['ce'] = Competency_element::all();
+        $data['exam'] = Examination::orderby('exam_date', 'asc')->get();
+        $data['exam'] = Examination::paginate(10);
+
+        return view('admin.table-exam-adm', $data);
+    }
+
+    public function createExam()
+    {
+        $profile = Auth::user();
+        $student = Student::all();
+        $ce = Competency_element::all();
+        $assessor = Assessor::all();
+
+        return view('admin.exam-adm-create', compact('student', 'ce', 'profile', 'assessor'));
+    }
+
+    public function addExam(Request $request)
+    {
+        $validate = $request->validate([
+            'exam_date' => ['required', 'date'],
+            'students_id' => ['required', 'exists:students,id'],
+            'assessors_id' => 'required',
+            'competency_elements_id' => ['required', 'array'],
+            'competency_elements_id.*' => 'exists:competency_elements,id',
+        ], [
+            'exam_date.required' => 'Exam date cannot be empty',
+            'exam_date.date' => 'Exam date must be date',
+            'students_id.required' => 'Student cannot be empty',
+            'students_id.exists' =>  'The student does not exist',
+            'competency_elements_id.array' => 'Competency element cannot be empty',
+            'competency_elements_id.required' => 'Competency element cannot be empty',
+            'competency_elements_id.exists' => 'The competency element does not exist'
+        ]);
+
+        foreach ($validate['competency_elements_id'] as $elementId) {
+            Examination::create([
+                'exam_date' => $validate['exam_date'],
+                'students_id' => $validate['students_id'],
+                'assessors_id' => $validate['assessors_id'],
+                'competency_elements_id' => $elementId,
+                'status' => null, 
+                'comments' => null
+            ]);
+        }
+
+        return redirect('/table-exam-adm');
+
+}
+
+
 }

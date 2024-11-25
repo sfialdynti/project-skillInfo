@@ -57,8 +57,10 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+
+        {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
-          <a class="nav-link" href="/table-competency_standard">
+          <a class="nav-link active" href="/table-competency_standard">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                 <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
@@ -68,20 +70,6 @@
             <span class="nav-link-text ms-1">Competency Standard</span>
           </a>
         </li>
-
-        {{-- ASSESSMENT --}}
-        <li class="nav-item">
-            <a class="nav-link active" href="/table-exam">
-              <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                  <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                </svg>
-              </div>
-              <span class="nav-link-text ms-1">Assessment</span>
-            </a>
-        </li>
-        
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -132,58 +120,54 @@
           </ol>
           <h6 class="font-weight-bolder mb-0">Competency Standard</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <form action="/table-competency_standard" method="post">
-              @csrf
-              <div class="input-group">
-                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                <input type="search" class="form-control" placeholder="Type here..." name="search">
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
-          <div class="pb-0 d-flex justify-content-between">
-            <a href="/exam/create" class="text-info" style="font-size: 15px; width: 100%;">
-            <button type="button" class="btn btn-primary w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
-              </svg>
-                Add Exam
-            </button>
-            </a>
-          </div>
-          <div class="card mb-4 pt-3">
-            <div class="card-body px-4 pt-0 pb-2">
-                <form action="{{ route('submit-assessment', $student->id) }}" method="POST">
+          <div class="card mb-4 pt-4">
+            <div class="card-body px-0 pt-0 pb-2">
+                <form action="{{ route('submit-assessment', $student->id) }}" method="post">
                     @csrf
-                    @foreach($examinations as $exam)
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $exam->competency_elements->criteria }}</h5>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status[{{ $exam->id }}]" value="1" {{ old('status', $exam->status) == 1 ? 'checked' : '' }}>
-                            <label class="form-check-label" for="status-kompeten-{{ $exam->id }}">Kompeten</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status[{{ $exam->id }}]" value="0" {{ old('status', $exam->status) == 0 ? 'checked' : '' }}>
-                            <label class="form-check-label" for="status-tidak-kompeten-{{ $exam->id }}">Tidak Kompeten</label>
-                        </div>
-                        <div class="mt-3">
-                            <textarea class="form-control" name="comments[{{ $exam->id }}]" rows="3">{{ old('comments.' . $exam->id, $exam->comment) }}</textarea>
-                        </div>
+                    <h6 class="p-4">Penilaian siswa: {{ $student->users->full_name }}</h6>
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Competency Element</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Comment</th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ce as $key => $item)
+                                    <tr>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ $key+1 }}</p>
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->competency_elements->criteria }}</p>
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="competency[{{ $item->id }}]" value="1" required> Kompeten
+                                            <input type="radio" name="competency[{{ $item->id }}]" value="0" required> Tidak Kompeten
+                                        </td>
+                                        <td>
+                                            <textarea name="comments[{{ $item->id }}]" class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    @endforeach
-                    <div class="mt-5">
+                    <div class="mx-4">
                         <button type="submit" class="btn btn-primary btn-md">Submit</button>
-                    </div>
+                      </div>
                 </form>
+              
             </div>
           </div>
         </div>

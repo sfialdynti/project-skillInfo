@@ -89,8 +89,16 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
     Route::post('/competency_standard-adm/update/{id}', [CompetencyStandardController::class, 'updateCS']);
     Route::get('/competency_standard-adm/delete/{id}', [CompetencyStandardController::class, 'deleteCS']);
 
+    Route::get('/competency_elements-adm/{id}', [CompetencyElementController::class, 'showCE'])->name('competency.elements-adm');
+    Route::get('/competency_elements-adm/create/{competency_standards_id}', [CompetencyElementController::class, 'createCE'])->name('competency.elements-adm.create');
+    Route::post('/competency_elements-adm/add', [CompetencyElementController::class, 'addCE'])->name('competency.elements-adm.add');
+    Route::get('/competency_elements-adm/edit/{id}', [CompetencyElementController::class, 'editCE'])->name('competency.elements-adm.edit');
+    Route::post('/competency_elements-adm/update/{id}', [CompetencyElementController ::class, 'updateCE']);
+    Route::get('/competency_element/delete-adm/{id}', [CompetencyElementController::class, 'deleteCE'])->name('competency.elements-adm.delete');
 
-
+    Route::get('/table-exam-adm', [ExaminationController::class, 'showExam']);
+    Route::get('/exam-adm/create', [ExaminationController::class, 'createExam']);
+    Route::post('/exam-adm/create', [ExaminationController::class, 'addExam']);
 
 });
 
@@ -128,7 +136,9 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
 
     Route::get('/liststudent', [AssessmentController::class, 'listStudent'])->name('assessor.table-assessment');
     Route::get('/assess-student/{id}', [AssessmentController::class, 'assessStudent'])->name('assess-student');
-    Route::post('/submit-assessment/{id}', [AssessmentController::class, 'submitAssessment'])->name('submit-assessment');
+    Route::post('/students/{studentId}/submit-assessment', [AssessmentController::class, 'submitAssessment'])->name('submit-assessment');
+
+    // Route::post('/submit-assessment/{id}', [AssessmentController::class, 'submitAssessment'])->name('submit-assessment');
 
     
 });
