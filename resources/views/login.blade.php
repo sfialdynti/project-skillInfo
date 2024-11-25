@@ -12,7 +12,8 @@
         
         body {
             /* background-color: #ea824a; */
-            background-image: url('{{ asset('assets/img/background/bg2.jpg') }}');
+            /* background-image: url('{{ asset('assets/img/background/bg.jpg') }}'); */
+            background-color: white;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -52,13 +53,14 @@
             font-size: 26px;
             margin-bottom: 15px;
             /* color: #0d203a; */
-            color: white;
+            /* color: black; */
+           color : #1a7482;
         }
 
         .welcome-section p {
             font-size: 16px;
             /* color: #555; */
-            color: white;
+            color: black;
         }
 
         .login-section {
@@ -85,27 +87,27 @@
             margin-bottom: 15px;
             font-weight: 700;
             /* color: #0d203a; */
-            color: white;
+            color: #1a7482;
         }
 
         input {
             background-color: transparent;
             border-radius: 10px;
-            border: white solid 0.5px;
+            border: black solid 0.5px;
             padding: 12px 15px;
             margin: 8px 0;
             width: 100%;
-            color: white
+            color: black;
         }
 
-        input::placeholder {
-            color: white;
-        }
+        /* input::placeholder {
+            color: black;
+        } */
 
         button {
             border-radius: 20px;
             border: white solid 1px;
-            background-color: #2a1608;
+            background-color: #1a7482;
             color: white;
             font-size: 15px;
             font-weight: 700;
@@ -144,14 +146,14 @@
                 @csrf
                 <h1>Log In Here</h1>
                 <div class="mb-2">
-                    <label for="email" class="text-white">Email</label>
+                    <label for="email" class="text-black">Email</label>
                     <input type="email" name="email" placeholder="Email Address" class="@error('email') is-invalid @enderror" value="{{ old('email') }}">
                     @error('email')
                         <div class=" invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="text-white">Password</label>
+                    <label for="password" class="text-black">Password</label>
                     <input type="password" name="password" placeholder="Password" class="@error('password') is-invalid @enderror">
                     @error('password')
                         <div class=" invalid-feedback">{{ $message }}</div>

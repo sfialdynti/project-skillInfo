@@ -56,6 +56,7 @@
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
+        </li>
         {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-competency_standard">

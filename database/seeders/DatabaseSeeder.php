@@ -21,10 +21,21 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        // User::create([
+        //     'full_name' => 'sofia',
+        //     'username' => 'fia',
+        //     'email' => 'sofia@gmail.com',
+        //     'password' => bcrypt('12345'),
+        //     'phone_number' => '0899766666',
+        //     'role' => 'Admin',
+        //     'is_active' => 1,
+        //     'image' => ''
+        // ]);
+
         User::create([
-            'full_name' => 'sofia',
-            'username' => 'fia',
-            'email' => 'sofia@gmail.com',
+            'full_name' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('12345'),
             'phone_number' => '0899766666',
             'role' => 'Admin',
