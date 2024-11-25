@@ -104,7 +104,7 @@ Route::group(['middleware' => ['auth','cekrole:Admin']], function () {
 
 Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::get('/dashboardAssessor', [DashboardController::class, 'showass']);
-    Route::get('/detail/profile/{id}', [DashboardController::class, 'profileass']);
+    Route::get('/detail/profile-ass/{id}', [DashboardController::class, 'profileass']);
     Route::get('/table-competency_standard', [CompetencyStandardController::class, 'show']);
     Route::post('/table-competency_standard', [CompetencyStandardController::class, 'search']);
     Route::get('/competency_standard/create', [CompetencyStandardController::class, 'create']);
@@ -131,7 +131,7 @@ Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
     Route::get('/exam/create', [ExaminationController::class, 'create']);
     Route::post('/exam/create', [ExaminationController::class, 'add']);
     Route::get('/exam/edit/{id}', [ExaminationController::class, 'edit']);
-    Route::post('/exam/update/{id}', [ExaminationController::class, 'edit']);
+    Route::post('/exam/update/{id}', [ExaminationController::class, 'update']);
     Route::get('/exam/delete/{id}', [ExaminationController::class, 'delete']);
 
     Route::get('/liststudent', [AssessmentController::class, 'listStudent'])->name('assessor.table-assessment');

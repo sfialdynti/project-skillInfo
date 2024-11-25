@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Assessor;
 use App\Models\Competency_element;
 use App\Models\Competency_standard;
+use App\Models\Examination;
 use App\Models\Major;
 use App\Models\Student;
 use App\Models\User;
@@ -23,7 +24,9 @@ class DashboardController extends Controller
             'total_user' => User::count(),
             'total_student' => Student::count(),
             'total_major' => Major::count(),
-            'total_ass' => Assessor::count()
+            'total_ass' => Assessor::count(),
+            'total_cs' => Competency_standard::count(),
+            'total_exam' => Examination::count()
         ];
         // return view('dashboard', compact('user'));
         return view('admin.dashboard', ['user' => $user] + $data);
@@ -80,12 +83,14 @@ class DashboardController extends Controller
         ]);
 
         if ($update) {
-            Session::flash('message', 'Data changed successfully');
+            Session::flash('message', 'Data profile changed successfully');
+            Session::flash('alert-class', 'alert-success');
         } else {
-            Session::flash('message', 'Data failed to change');
+            Session::flash('message', 'Data profile failed to change');
+            Session::flash('alert-class', 'alert-danger');
         }
 
-        return redirect('detail-profile');
+        return redirect('/dashboard');
     }
 
 

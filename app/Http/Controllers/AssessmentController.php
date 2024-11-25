@@ -123,9 +123,10 @@ class AssessmentController extends Controller
         $evaluationStatus = $this->getEvaluationStatus($finalScore);
 
         $student->evaluation_status = $evaluationStatus;
+        // $student->finalScore = $finalScore;
         $student->save();
 
-        dd($totalCompetency, $totalCompetencyElements, $finalScore);
+        // dd($totalCompetency, $totalCompetencyElements, $finalScore);
 
 
         return redirect()->route('assessor.table-assessment');
@@ -133,17 +134,17 @@ class AssessmentController extends Controller
     }
 
     private function getEvaluationStatus($score)
-{
-    if ($score >= 91) {
-        return 'Sangat Kompeten';
-    } elseif ($score >= 75) {
-        return 'Kompeten';
-    } elseif ($score >= 61) {
-        return 'Cukup Kompeten';
-    } else {
-        return 'Belum Kompeten';
+    {
+        if ($score >= 91) {
+            return 'Sangat Kompeten';
+        } elseif ($score >= 75) {
+            return 'Kompeten';
+        } elseif ($score >= 61) {
+            return 'Cukup Kompeten';
+        } else {
+            return 'Belum Kompeten';
+        }
     }
-}
 
     // public function submitAssessment(Request $request, $studentId)
     // {
