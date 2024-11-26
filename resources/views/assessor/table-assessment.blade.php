@@ -180,7 +180,7 @@
                         <p class="text-xs font-weight-bold mb-0">{{ $item->evaluation_status }}</p>
                     </td>
                     <td class="align-middle">
-                      <p class="text-xs font-weight-bold mb-0">{{ $item->score }}</p>
+                      <p class="text-xs font-weight-bold mb-0">{{ $item->finalScore}}</p>
                     </td>
                     <td class="align-middle text-center">
                         <a href="{{ route('assess-student', $item->id) }}" class="text-secondary font-weight-bold text-info me-3" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
