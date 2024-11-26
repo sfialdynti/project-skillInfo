@@ -120,7 +120,7 @@
           <h6 class="font-weight-bolder mb-0">Dashboard</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 justify-content-end" id="navbar">
-          <span class="me-3">{{ $user->full_name }}</span>
+          <span class="me-3">{{ $user->full_name }}  - {{ $user->role }}</span>
           <ul class="navbar-nav">
             <li class="nav-item dropdown d-flex align-items-center">
               <a href="#" class="nav-link text-body font-weight-bold px-0 dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

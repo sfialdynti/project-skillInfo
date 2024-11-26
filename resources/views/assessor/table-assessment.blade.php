@@ -127,7 +127,7 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <form action="/table-competency_standard" method="post">
+            <form action="/liststudent" method="post">
               @csrf
               <div class="input-group">
                 <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>

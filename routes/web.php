@@ -89,7 +89,7 @@ Route::middleware('statusLogin')->group(function () {
         Route::post('/competency_standard-adm/create', [CompetencyStandardController::class, 'addCS']);
         Route::get('/competency_standard-adm/edit/{id}', [CompetencyStandardController::class, 'editCS']);
         Route::post('/competency_standard-adm/update/{id}', [CompetencyStandardController::class, 'updateCS']);
-        Route::get('/competency_standard-adm/delete/{id}', [CompetencyStandardController::class, 'deleteCS']);
+        Route::get('/competency_standard-adm/delete/a{id}', [CompetencyStandardController::class, 'deleteCS']);
 
         Route::get('/competency_elements-adm/{id}', [CompetencyElementController::class, 'showCE'])->name('competency.elements-adm');
         Route::get('/competency_elements-adm/create/{competency_standards_id}', [CompetencyElementController::class, 'createCE'])->name('competency.elements-adm.create');
@@ -101,6 +101,10 @@ Route::middleware('statusLogin')->group(function () {
         Route::get('/table-exam-adm', [ExaminationController::class, 'showExam']);
         Route::get('/exam-adm/create', [ExaminationController::class, 'createExam']);
         Route::post('/exam-adm/create', [ExaminationController::class, 'addExam']);
+        Route::get('/exam-adm/edit/{id}', [ExaminationController::class, 'editExam']);
+        Route::post('/exam-adm/update/{id}', [ExaminationController::class, 'updateExam']);
+        Route::get('/exam-adm/delete/{id}', [ExaminationController::class, 'deleteExam']);
+
 
     });
 

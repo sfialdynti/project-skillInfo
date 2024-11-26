@@ -194,7 +194,71 @@ class ExaminationController extends Controller
 
         return redirect('/table-exam-adm');
 
-}
+    }
 
+    public function editExam(Request $request)
+    {
+        $profile = Auth::user();
+        $exam = Examination::find($request->id);
+        $student = Student::all();
+        $ce = Competency_element::all(); 
+        $selectedElements = $exam->competency_elements_id ? json_decode($exam->competency_elements_id, true) : [];
+        // $selectedElements = json_decode($exam->competency_elements_id, true);
+
+        return view('admin.exam-adm-edit', [
+            'exam' => $exam,
+            'student' => $student,
+            'ce' => $ce,
+            'selectedElements' => $selectedElements,
+            'profile' => $profile
+        ]);
+    }
+
+    public function updateExam(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'exam_date' => ['required', 'date'],
+            'students_id' => ['required', 'exists:students,id'],
+            'competency_elements_id' => ['required', 'array'],
+            'competency_elements_id.*' => 'exists:competency_elements,id',
+        ], [
+            'exam_date.required' => 'Exam date cannot be empty',
+            'exam_date.date' => 'Exam date must be date',
+            'students_id.required' => 'Student cannot be empty',
+            'students_id.exists' =>  'The student does not exist',
+            'competency_elements_id.array' => 'Competency element cannot be empty',
+            'competency_elements_id.required' => 'Competency element cannot be empty',
+            'competency_elements_id.exists' => 'The competency element does not exist'
+        ]);
+    
+        $exam = Examination::findOrFail($id);
+
+        $update = Examination::where('id', $request->id)->update([
+            'exam_date' => $validate['exam_date'],
+            'students_id' => $validate['students_id'],
+            'competency_elements_id' => json_encode($validate['competency_elements_id']),
+        ]);
+
+        if ($update) {
+            Session::flash('message', 'Data changed successfully');
+        } else {
+            Session::flash('message', 'Data failed to change');
+        }
+
+        return redirect('/table-exam-adm');
+    }
+
+    public function deleteExam(Request $request)
+    {
+        Examination::find($request->id);
+        $delete = Examination::where('id', $request->id)->delete();
+        if ($delete) {
+            Session::flash('message', 'Data deleted successfully');
+        }else{
+            Session::flash('message', 'Data failed to delete');
+        }
+
+        return redirect('/table-exam-adm');
+    }
 
 }

@@ -120,9 +120,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Competency Standard</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Exam</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Competency Standard</h6>
+          <h6 class="font-weight-bolder mb-0">Exam</h6>
         </nav>
       </div>
     </nav>
@@ -132,7 +132,7 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Create Competency Standard</h6>
+                <h6>Edit Exam</h6>
             </div>
             <div class="card-body px-4 pt-0 pb-2">
               <form action="/exam/update/{{ $exam->id }}" method="POST" enctype="multipart/form-data">

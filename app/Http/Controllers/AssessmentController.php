@@ -53,6 +53,13 @@ class AssessmentController extends Controller
         return view('assessor.table-assessment', compact('students', 'profile'));
     }
 
+    // public function search(Request $request)
+    // {
+    //     $data['profile'] = Auth::user();
+    //     $search = $request->input('search');
+    //     $query = Examination::query();
+    // }
+
     public function assessStudent($studentId)
     {
         $profile = Auth::user();
