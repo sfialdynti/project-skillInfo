@@ -29,7 +29,7 @@ class LoginController extends Controller
             if (Auth::user()->role == 'Admin') {
                 return redirect('/dashboard');
             } elseif (Auth::user()->role == 'Assessor') {
-                return redirect('/dashboardAssessor');
+                return redirect('/table-competency_standard');
             } elseif (Auth::user()->role == 'Student') {
                 return redirect('/dashboardStudent');
             } else {

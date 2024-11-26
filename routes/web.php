@@ -107,6 +107,7 @@ Route::middleware('statusLogin')->group(function () {
     Route::group(['middleware'=> ['auth', 'cekrole:Assessor']], function () {
         Route::get('/dashboardAssessor', [DashboardController::class, 'showass']);
         Route::get('/detail/profile-ass/{id}', [DashboardController::class, 'profileass']);
+        Route::post('profile-ass/update/{id}', [DashboardController::class, 'updtprofileass']);
         Route::get('/table-competency_standard', [CompetencyStandardController::class, 'show']);
         Route::post('/table-competency_standard', [CompetencyStandardController::class, 'search']);
         Route::get('/competency_standard/create', [CompetencyStandardController::class, 'create']);
@@ -144,5 +145,15 @@ Route::middleware('statusLogin')->group(function () {
 
         
     });
+
+    Route::group(['middleware'=> ['auth', 'cekrole:Student']], function () {
+        Route::get('/dashboardStudent', [DashboardController::class, 'showstud']);
+        Route::get('/detail/profile-stud/{id}', [DashboardController::class, 'profilestud']);
+        Route::post('profile-stud/update/{id}', [DashboardController::class, 'updtprofilestud']);
+
+        
+    });
+
+    
 
 });

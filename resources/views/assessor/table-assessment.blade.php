@@ -121,9 +121,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Competency Standard</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Assessment</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Competency Standard</h6>
+          <h6 class="font-weight-bolder mb-0">Assessment</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -142,17 +142,6 @@
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
-          <div class="pb-0 d-flex justify-content-between">
-            <a href="/exam/create" class="text-info" style="font-size: 15px; width: 100%;">
-            <button type="button" class="btn btn-primary w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
-              </svg>
-                Add Exam
-            </button>
-            </a>
-          </div>
           <div class="card mb-4 pt-3">
             @if ($students->isEmpty())
             <p class="ms-4 text-danger">No student with exam found.</p>
