@@ -14,7 +14,7 @@ class AssessorController extends Controller
     public function internal()
     {
         $data['profile'] = Auth::user();
-        $data['assessors'] = Assessor::with('users')->where('assessor_type', 'Internal')->get();
+        $data['assessors'] = Assessor::with('users')->where('assessor_type', 'Internal')->paginate(10);
 
         return view('admin.table-assessorint', $data);
     }
@@ -99,7 +99,8 @@ class AssessorController extends Controller
     public function external()
     {
         $data['profile'] = Auth::user();
-        $data['assessors'] = Assessor::with('users')->where('assessor_type', 'External')->get();
+        $data['assessors'] = Assessor::with('users')->where('assessor_type', 'External')->paginate(10);
+        
         return view('admin.table-assessorext', $data);
     }
 

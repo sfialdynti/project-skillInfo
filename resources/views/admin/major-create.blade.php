@@ -152,7 +152,6 @@
             <span class="nav-link-text ms-1">Majors</span>
           </a>
         </li>
-
         {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-competency_standard-adm">
@@ -165,7 +164,6 @@
             <span class="nav-link-text ms-1">Competency Standard</span>
           </a>
         </li>
-
         {{-- EXAM --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-exam-adm">
@@ -178,9 +176,11 @@
             <span class="nav-link-text ms-1">Exam</span>
           </a>
         </li>
+        {{-- MANAGE USER --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
+        {{-- PROFILE --}}
         <li class="nav-item">
           <a class="nav-link" href="/detail/profile/{{ $profile->id }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -202,6 +202,7 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
+        {{-- LOGOUT --}}
         <li class="nav-item">
           <a class="nav-link" href="/logout">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

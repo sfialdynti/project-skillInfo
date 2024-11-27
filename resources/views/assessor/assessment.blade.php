@@ -161,7 +161,7 @@
                                             <input type="radio" name="competency_elements[{{ $item->competency_elements_id }}]" value="0" @if($item->status == 0) checked @endif required> Tidak Kompeten
                                         </td>
                                         <td>
-                                            <textarea name="comments[{{ $item->competency_elements_id }}]" class="form-control"></textarea>
+                                            <textarea name="comments[{{ $item->competency_elements_id }}]" class="form-control"> {{ old('comments.', $item->comments ??'') }}</textarea>
                                         </td>
                                     </tr>
                                 @endforeach

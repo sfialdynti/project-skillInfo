@@ -263,16 +263,22 @@
             </button>
             </a>
           </div>
+          @if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
+          </div>
+          @endif
           <div class="card mb-4">
             @if ($major->isEmpty())
-            <p class="m-4 text-danger">No student found.</p>
+            <p class="m-4 text-danger">No major found.</p>
             @else
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Major Name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
@@ -311,6 +317,9 @@
               </div>
             </div>
           </div>
+          <div class=" my-5">
+            {{ $major->withQueryString()->links() }}
+        </div>
         </div>
         @endif
       </div>

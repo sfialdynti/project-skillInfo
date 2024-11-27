@@ -264,7 +264,7 @@
                       <option value="" disabled selected>Select a major</option>
                       @foreach ($major as $item)
                           <option value="{{ $item->id }}" {{ old('majors_id') == $item->id ? 'selected' : '' }}>
-                            {{ $item->major_name }}
+                            {{ $item->major_name }} - {{ $item->description }}
                           </option>
                       @endforeach
                       </select>
@@ -277,13 +277,17 @@
                         <select class="form-control @error('users_id') is-invalid @enderror" id="user" name="users_id">
                         <option value="" disabled selected>Select a user</option>
                         @foreach ($user as $item)
-                            <option value="{{ $item->id }}" {{ old('users_id') == $item->id ? 'selected' : '' }}>{{ $item->full_name }}</option>
+                            <option value="{{ $item->id }}" {{ old('users_id') == $item->id ? 'selected' : '' }} 
+                              {{ in_array($item->id, $exist) ? 'disabled' : '' }}>
+                              {{ $item->full_name }}
+                              {{ in_array($item->id, $exist) ? '(Already exists)' : '' }}
+                            </option>
                         @endforeach
                         </select>
                         @error('users_id')
                           <div class=" invalid-feedback">{{ $message }}</div>
                         @enderror
-                      </div>
+                    </div>
                     <div class="mt-5">
                       <button type="submit" class="btn btn-primary btn-md">Submit</button>
                     </div>

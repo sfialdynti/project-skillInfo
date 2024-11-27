@@ -152,7 +152,6 @@
           <span class="nav-link-text ms-1">Majors</span>
         </a>
         </li>
-
         {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-competency_standard-adm">
@@ -165,7 +164,6 @@
             <span class="nav-link-text ms-1">Competency Standard</span>
           </a>
         </li>
-
         {{-- EXAM --}}
         <li class="nav-item">
             <a class="nav-link active" href="/table-exam-adm">
@@ -178,7 +176,7 @@
               <span class="nav-link-text ms-1">Exam</span>
             </a>
         </li>
-        
+        {{-- MANAGE ACCOUNT --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -246,6 +244,12 @@
             </button>
             </a>
           </div>
+          @if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
+          </div>
+           @endif
           <div class="card mb-4 pt-3">
             @if ($exam->isEmpty())
             <p class="ms-4 text-danger">No Exam found.</p>
@@ -306,7 +310,7 @@
               </div>
             </div>
           </div>
-          <div class=" my-5 mx-4">
+          <div class=" my-5">
             {{ $exam->withQueryString()->links() }}
         </div>
         </div>

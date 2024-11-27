@@ -51,7 +51,7 @@
             <span>NISN : {{ $student->nisn }}</span>
             <br>
             <span>Jurusan : {{ $student->majors->major_name }}</span>
-            <p>Telah melaksanakan Ujian dengan hasil  {{ $status }}</p>
+            <p>Telah melaksanakan Ujian dengan hasil <strong> {{ $status }} </strong></p>
         </div>
 
         <div class="text-center judul mt-5">

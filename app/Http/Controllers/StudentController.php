@@ -15,7 +15,7 @@ class StudentController extends Controller
     {
         $data['profile'] = Auth::user();
         $data['student'] = Student::with(['users', 'majors'])->orderby('nisn', 'asc')->get();
-
+        $data['student'] = Student::paginate(10);
         return view('admin.table-student', $data);
     }
 
@@ -27,6 +27,7 @@ class StudentController extends Controller
 
         if ($search) {
             $query->where('nisn', 'LIKE', '%'.$request->search.'%')
+            ->orwhere('grade_level', $request->search)
             ->orWhereHas('majors', function ($q) use ($search) {
                 $q->where('major_name', 'LIKE', '%'.$search.'%');
             })
@@ -44,6 +45,7 @@ class StudentController extends Controller
     {
         $data['profile'] = Auth::user();
         $data['major'] = Major::all();
+        $data['exist'] = Student::pluck('users_id')->toArray();
         $data['user'] = User::where('role', 'Student')
         ->leftJoin('assessors', 'users.id', '=', 'assessors.users_id')
         ->select('users.*', 'assessors.assessor_type')

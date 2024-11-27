@@ -15,7 +15,7 @@ class CompetencyElementController extends Controller
         $profile = Auth::user();
         $all = Competency_standard::all();
         $cs = Competency_standard::findOrFail($id);
-        $ce = Competency_element::where('competency_standards_id', $id)->get();
+        $ce = Competency_element::where('competency_standards_id', $id)->paginate(10);
 
         return view('assessor.table-competency_element', compact('cs', 'ce', 'profile', 'all'));
     }
@@ -101,7 +101,7 @@ class CompetencyElementController extends Controller
         $profile = Auth::user();
         $all = Competency_standard::all();
         $cs = Competency_standard::findOrFail($id);
-        $ce = Competency_element::where('competency_standards_id', $id)->get();
+        $ce = Competency_element::where('competency_standards_id', $id)->paginate(10);
 
         return view('admin.table-competency_element-adm', compact('cs', 'ce', 'profile', 'all'));
     }

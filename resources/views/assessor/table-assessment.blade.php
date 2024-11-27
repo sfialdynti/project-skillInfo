@@ -125,23 +125,18 @@
           </ol>
           <h6 class="font-weight-bolder mb-0">Assessment</h6>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <form action="/liststudent" method="post">
-              @csrf
-              <div class="input-group">
-                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                <input type="search" class="form-control" placeholder="Type here..." name="search">
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
+          @if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
+          </div>
+           @endif
           <div class="card mb-4 pt-3">
             @if ($students->isEmpty())
             <p class="ms-4 text-danger">No student with exam found.</p>
@@ -197,6 +192,9 @@
               </div>
             </div>
           </div>
+          <div class=" my-5">
+            {{ $students->withQueryString()->links() }}
+        </div>
         </div>
         @endif
       </div>

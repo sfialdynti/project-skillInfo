@@ -24,7 +24,9 @@ class MajorController extends Controller
         $query = Major::query();
 
         if ($search) {
-            $query->where('major_name', 'LIKE', '%'.$request->search.'%')->get();
+            $query->where('major_name', 'LIKE', '%'.$request->search.'%')
+            ->orwhere('description', 'LIKE', '%'.$request->search.'%')
+            ->get();
         }
 
         $data['major'] = $query->paginate(10)->appends(['search' => $search]);
@@ -40,10 +42,11 @@ class MajorController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'major_name' => 'required',
+            'major_name' => ['required', 'max:32'],
             'description' => 'required'
         ], [
             'major_name.required' => 'Major name cannot be empty',
+            'major_name.max' => 'Major name maximal 32 character',
             'description.required' => 'Description cannot be empty'
         ]);
 

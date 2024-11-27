@@ -54,7 +54,7 @@ class AssessmentController extends Controller
             $query->where('assessors_id', $assessor->id)
                   ->with('competency_elements');
         }])
-        ->get();
+        ->paginate(10);
         
         return view('assessor.table-assessment', compact('students', 'profile'));
     }

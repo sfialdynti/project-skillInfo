@@ -253,7 +253,12 @@
                 Add Student
             </button>
             </a>
+          </div>@if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
           </div>
+           @endif
           <div class="card mb-4">
             @if ($student->isEmpty())
             <p class="m-4 text-danger">No student found.</p>
@@ -318,6 +323,9 @@
               </div>
             </div>
           </div>
+          <div class=" my-5">
+            {{ $student->withQueryString()->links() }}
+        </div>
         </div>
         @endif
       </div>

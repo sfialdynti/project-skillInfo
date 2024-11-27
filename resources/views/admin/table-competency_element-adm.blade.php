@@ -38,7 +38,7 @@
       <ul class="navbar-nav">
         {{-- DASHBOARD --}}
         <li class="nav-item">
-          <a class="nav-link" href="/dashboardAssessor">
+          <a class="nav-link" href="/dashboard">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>shop </title>
@@ -153,10 +153,9 @@
             <span class="nav-link-text ms-1">Majors</span>
           </a>
         </li>
-
         {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
-          <a class="nav-link active" href="/table-competency_standard">
+          <a class="nav-link active" href="/table-competency_standard-adm">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                 <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
@@ -166,7 +165,6 @@
             <span class="nav-link-text ms-1">Competency Standard</span>
           </a>
         </li>
-
         {{-- EXAM --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-exam-adm">
@@ -179,6 +177,7 @@
             <span class="nav-link-text ms-1">Exam</span>
           </a>
         </li>
+        {{-- MANAGE ACCOUNT --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -225,9 +224,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Competency Standard</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Competency Element</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Competency Standard</h6>
+          <h6 class="font-weight-bolder mb-0">Competency Element</h6>
         </nav>
       </div>
     </nav>
@@ -236,16 +235,6 @@
       <div class="row">
         <div class="col-12">
           <div class="d-flex">
-            {{-- <form method="GET" action="{{ route('competency.elements', ['id' => $cs->id]) }}" class="w-100">
-              <label for="competency_standards">Pilih Competency Standard:</label>
-              <select name="competency_standards_id" id="competency_standards" class="form-control" onchange="this.form.submit()">
-                  @foreach ($all as $standard)
-                      <option value="{{ $standard->id }}" {{ $cs->id == $standard->id ? 'selected' : '' }}>
-                          {{ $standard->unit_code }} - {{ $standard->unit_title }}
-                      </option>
-                  @endforeach
-              </select>
-            </form> --}}
           </div>
           <div class="pb-0 d-flex justify-content-between">
             <a href="{{ route('competency.elements-adm.create', ['competency_standards_id' => $cs->id]) }}" class="text-info" style="font-size: 15px; width: 100%;">
@@ -259,9 +248,15 @@
             </button>
             </a>
           </div>
-          <div class="card mb-4 pt-4">
+          @if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
+          </div>
+           @endif
+          <div class="card mb-4">
             @if ($ce->isEmpty())
-            <p class="ms-4 text-danger">No Competency Elements found.</p>
+            <p class="m-4 text-danger">No Competency Elements found.</p>
             @else
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -303,6 +298,9 @@
               </div>
             </div>
           </div>
+          <div class=" my-5">
+            {{ $ce->withQueryString()->links() }}
+        </div>
         </div>
         @endif
       </div>

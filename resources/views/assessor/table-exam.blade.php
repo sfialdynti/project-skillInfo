@@ -153,6 +153,12 @@
             </button>
             </a>
           </div>
+          @if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
+          </div>
+           @endif
           <div class="card mb-4 pt-3">
             @if ($exam->isEmpty())
             <p class="ms-4 text-danger">No Exam found.</p>
@@ -210,12 +216,12 @@
                     @endforeach
                   </tbody>  
                 </table>
-                <div class=" my-5">
-                  {{ $exam->withQueryString()->links() }}
-              </div>
               </div>
             </div>
           </div>
+          <div class=" my-5">
+            {{ $exam->withQueryString()->links() }}
+        </div>
         </div>
         @endif
       </div>

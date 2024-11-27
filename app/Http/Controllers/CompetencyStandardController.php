@@ -148,7 +148,7 @@ class CompetencyStandardController extends Controller
     public function showCS()
     {
         $data['profile'] = Auth::user();
-        $data['cs'] = Competency_standard::orderby('unit_code', 'asc')->get();
+        $data['cs'] = Competency_standard::orderby('unit_code', 'asc')->paginate(10);
 
         return view('admin.table-competency_standard-adm', $data);
     }

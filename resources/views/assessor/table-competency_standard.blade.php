@@ -74,6 +74,7 @@
           <span class="nav-link-text ms-1">Assessment</span>
         </a>
       </li>
+      {{-- MANAGE ACCOUNT --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -152,9 +153,15 @@
             </button>
             </a>
           </div>
+          @if (Session::has('message'))
+          <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
+          </div>
+           @endif
           <div class="card mb-4">
             @if ($cs->isEmpty())
-            <p class="ms-4 text-danger">No Competency Standard found.</p>
+            <p class="m-4 text-danger">No Competency Standard found.</p>
             @else
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -218,6 +225,9 @@
               </div>
             </div>
           </div>
+          <div class=" my-5">
+            {{ $cs->withQueryString()->links() }}
+        </div>
         </div>
         @endif
       </div>

@@ -152,7 +152,6 @@
             <span class="nav-link-text ms-1">Majors</span>
           </a>
         </li>
-
         {{-- COMPETENCY STANDARD --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-competency_standard-adm">
@@ -165,7 +164,6 @@
             <span class="nav-link-text ms-1">Competency Standard</span>
           </a>
         </li>
-
         {{-- EXAM --}}
         <li class="nav-item">
           <a class="nav-link" href="/table-exam-adm">
@@ -178,9 +176,11 @@
             <span class="nav-link-text ms-1">Exam</span>
           </a>
         </li>
+        {{-- MANAGE USER --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
+        {{-- PROFILE --}}
         <li class="nav-item">
           <a class="nav-link" href="/detail/profile/{{ $profile->id }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -202,6 +202,7 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
+        {{-- logout --}}
         <li class="nav-item">
           <a class="nav-link" href="/logout">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -257,7 +258,7 @@
           @if (Session::has('message'))
           <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert" id="alert-box">
               {{ Session::get('message') }}
-              <button type="button" class="btn-close text-black-50" data-bs-dismiss="alert" aria-label="Close"></button>
+              <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close">x</button>
           </div>
            @endif
           <div class="card mb-4">
@@ -269,7 +270,7 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone Number</th>
