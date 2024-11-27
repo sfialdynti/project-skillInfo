@@ -255,6 +255,9 @@
             </a>
           </div>
           <div class="card mb-4">
+            @if ($student->isEmpty())
+            <p class="m-4 text-danger">No student found.</p>
+            @else
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
@@ -316,6 +319,7 @@
             </div>
           </div>
         </div>
+        @endif
       </div>
     </div>
   </main>

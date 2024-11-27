@@ -27,9 +27,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('template.dashbo');
-// });
+Route::get('/serti', function () {
+    return view('student.sertifikat');
+});
 
 
 //LOGIN

@@ -363,8 +363,8 @@ class ExaminationController extends Controller
         $student->save();
 
         $pdf = FacadePdf::loadView('student.sertifikat', ['examgroup' => $examgroup, 'student' => $student, 'status' => $status]);
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->download('exam_results.pdf');
-
         // return view('student.result', compact('profile'));
     }
 

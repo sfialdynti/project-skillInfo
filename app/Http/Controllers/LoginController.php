@@ -31,7 +31,7 @@ class LoginController extends Controller
             } elseif (Auth::user()->role == 'Assessor') {
                 return redirect('/table-competency_standard');
             } elseif (Auth::user()->role == 'Student') {
-                return redirect('/dashboardStudent');
+                return redirect('/result');
             } else {
                 return redirect('/');
             }
