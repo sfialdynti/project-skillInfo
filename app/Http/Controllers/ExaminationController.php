@@ -6,6 +6,8 @@ use App\Models\Assessor;
 use App\Models\Competency_element;
 use App\Models\Examination;
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -16,19 +18,37 @@ class ExaminationController extends Controller
 {
     public function show()
     {
-        $data['profile'] = Auth::user();
-        $data['student'] = Student::all();
+        // $data['profile'] = Auth::user();
+        // $data['student'] = Student::all();
+        // $userId = Auth::id();
+        // $assessor = Assessor::where('users_id', $userId)->first();
+        // // $data['ce'] = Competency_element::where('assessors_id', $assessor->id);
+        // $data['ce'] = Competency_element::whereHas('competency_standards', function ($query) use ($assessor) {
+        //     $query->where('assessors_id', $assessor->id);
+        // })->with('examinations')->get();
+
+        // $data['exam'] = Examination::orderby('exam_date', 'asc')->get();
+        // $data['exam'] = Examination::paginate(10);
+
+        // return view('assessor.table-exam', $data);
+
+        $profile = Auth::user();
         $userId = Auth::id();
         $assessor = Assessor::where('users_id', $userId)->first();
-        // $data['ce'] = Competency_element::where('assessors_id', $assessor->id);
-        $data['ce'] = Competency_element::whereHas('competency_standards', function ($query) use ($assessor) {
+
+        $student = Student::whereHas('examinations', function ($query) use ($assessor) {
+            $query->where('assessors_id', $assessor->id);
+        })->get();
+
+        $ce = Competency_element::whereHas('competency_standards', function ($query) use ($assessor) {
             $query->where('assessors_id', $assessor->id);
         })->with('examinations')->get();
 
-        $data['exam'] = Examination::orderby('exam_date', 'asc')->get();
-        $data['exam'] = Examination::paginate(10);
+        $exam = Examination::where('assessors_id', $assessor->id)
+                                    ->orderBy('exam_date', 'asc')
+                                    ->paginate(10);
 
-        return view('assessor.table-exam', $data);
+        return view('assessor.table-exam', compact('profile', 'student', 'ce', 'exam'));
 
     }
 
@@ -58,9 +78,6 @@ class ExaminationController extends Controller
             'competency_elements_id.exists' => 'The competency element does not exist'
         ]);
 
-        // dd($validate);
-
-        // Log::info('Data yang diterima:', $validate);
         $userId = Auth::id();
         $assessor = Assessor::where('users_id', $userId)->first();
         foreach ($validate['competency_elements_id'] as $elementId) {
@@ -259,6 +276,96 @@ class ExaminationController extends Controller
         }
 
         return redirect('/table-exam-adm');
+    }
+
+    //RESULT
+    public function result()
+    {
+        $profile = Auth::user();
+        $userId = Auth::id();
+        $student = Student::where('users_id', $userId)->first();
+        $exam = Examination::where('students_id', $student->id)
+        ->whereHas('competency_elements')
+        ->whereHas('competency_elements.competency_standards')
+        ->with(['competency_elements.competency_standards', 'assessors'])
+        ->get();
+
+        $examgroup = $exam->groupBy(function ($exam) {
+            return $exam->competency_elements->competency_standards->id;
+        });
+
+        if ($exam->isEmpty()) {
+            return redirect()->route('student.dashboard')->with('message', 'Anda belum memiliki ujian.');
+        }
+
+        $totalCompetency = $exam->where('status', 1)->count();
+        $totalCompetencyElements = $exam->count();
+
+        
+        if ($totalCompetencyElements > 0) {
+            $finalScore = ($totalCompetency / $totalCompetencyElements) * 100;
+        } else {
+            $finalScore = 0;
+        }
+
+        $status = $this->getEvaluationStatus($finalScore);
+
+        $student->evaluation_status = $status;
+        $student->save();
+
+        return view('student.result', compact('profile', 'examgroup', 'student', 'status'));
+    }
+
+    private function getEvaluationStatus($score)
+    {
+        if ($score >= 91) {
+            return 'Sangat Kompeten';
+        } elseif ($score >= 75) {
+            return 'Kompeten';
+        } elseif ($score >= 61) {
+            return 'Cukup Kompeten';
+        } else {
+            return 'Belum Kompeten';
+        }
+    }
+
+    public function print_pdf()
+    {   
+        $userId = Auth::id();
+        $student = Student::where('users_id', $userId)->first();
+        $exam = Examination::where('students_id', $student->id)
+        ->whereHas('competency_elements')
+        ->whereHas('competency_elements.competency_standards')
+        ->with(['competency_elements.competency_standards', 'assessors'])
+        ->get();
+
+        $examgroup = $exam->groupBy(function ($exam) {
+            return $exam->competency_elements->competency_standards->id;
+        });
+
+        if ($exam->isEmpty()) {
+            return redirect()->route('student.dashboard')->with('message', 'Anda belum memiliki ujian.');
+        }
+
+        $totalCompetency = $exam->where('status', 1)->count();
+        $totalCompetencyElements = $exam->count();
+
+        
+        if ($totalCompetencyElements > 0) {
+            $finalScore = ($totalCompetency / $totalCompetencyElements) * 100;
+        } else {
+            $finalScore = 0;
+        }
+
+        $status = $this->getEvaluationStatus($finalScore);
+
+        $student->evaluation_status = $status;
+        $student->save();
+
+        $pdf = FacadePdf::loadView('student.sertifikat', ['examgroup' => $examgroup, 'student' => $student, 'status' => $status]);
+        return $pdf->download('exam_results.pdf');
+
+        // return view('student.result', compact('profile'));
     }
 
 }

@@ -45,10 +45,16 @@ class AssessmentController extends Controller
     public function listStudent()
     {
         $profile = Auth::user();
-        $examinations = Examination::where('assessors_id', auth()->user()->id)->get();
-        $students = Student::whereHas('examinations')->with(['examinations' => function ($query) {
-                    $query->with('competency_elements');
-                }])->get();
+        $assessor = $profile->assessors->first();
+
+        $students = Student::whereHas('examinations', function ($query) use ($assessor) {
+            $query->where('assessors_id', $assessor->id);
+        })
+        ->with(['examinations' => function ($query) use ($assessor) {
+            $query->where('assessors_id', $assessor->id)
+                  ->with('competency_elements');
+        }])
+        ->get();
         
         return view('assessor.table-assessment', compact('students', 'profile'));
     }
@@ -64,39 +70,20 @@ class AssessmentController extends Controller
     {
         $profile = Auth::user();
         $student = Student::findOrFail($studentId);
-        // $examinations = Examination::where('students_id', $studentId)->with('competency_elements')->get();
-        // $ce = $student->examinations;
-        // $ce = $student->competency_elements;
-        $examinations = Examination::where('students_id', $studentId)
-                                ->with('competency_elements') 
-                                ->get();
-
-        // $examinationCount = $examinations->isEmpty() ? 0 : $examinations->count();
-
+        $examinations = Examination::where('students_id', $studentId)->with('competency_elements')->get();
+        $ce = $student->examinations;
+        $ce = $student->competency_elements;
 
         return view('assessor.assessment', compact('student', 'examinations', 'profile'));
     }
 
     public function submitAssessment(Request $request, $studentId)
     {
-        // $student = Student::findOrFail($studentId);
         $students = Student::with('examinations.competency_elements')->findOrFail($studentId);
         $assessor = Assessor::where('users_id', auth()->id())->first();
         $examDate = $students->examinations->first()->exam_date ?? null;
-        // foreach ($request->competency_elements as $competencyElementId => $status) {
-        //     $assessment = new Examination();
-        //     $assessment->exam_date = $examDate;
-        //     $assessment->students_id = $student->id;
-        //     $assessment->assessors_id = $assessor->id;  
-        //     $assessment->competency_elements_id = $competencyElementId;
-        //     $assessment->status = $status;
-        //     $assessment->comments = $request->comments[$competencyElementId] ?? null;
-        //     $assessment->save();
-        // }
-        // dd($request->competency_elements);
 
         foreach ($request->competency_elements as $competencyElementId => $status) {
-            // Cek apakah entri examination sudah ada
             $assessment = Examination::updateOrCreate(
                 [
                     'students_id' => $students->id,
@@ -111,26 +98,13 @@ class AssessmentController extends Controller
             );
         }
 
-
-        // $examinations = $student->examinations;
-        // $totalCompetencyElements = 0;
-
         $totalCompetency = $students->examinations()->where('status', 1)->count();
-        // $totalCompetencyElements = 0;
         $totalCompetencyElements = $students->examinations()->count();
-
-        // foreach ($student->examinations as $examination) {
-        //     if ($examination->competency_elements) {
-        //         $totalCompetencyElements = $examination->competency_elements->count();
-        //     }
-// }
-        // $totalCompetencyElements = $student->competency_elements->count();
 
         $finalScore = ($totalCompetency / $totalCompetencyElements) * 100;
         $evaluationStatus = $this->getEvaluationStatus($finalScore);
 
         $students->evaluation_status = $evaluationStatus;
-        // $students->finalScore = $finalScore;
         $students->save();
 
         // dd($totalCompetency, $totalCompetencyElements, $finalScore);

@@ -175,8 +175,9 @@ class DashboardController extends Controller
     public function showstud()
     {
         $user = Auth::user();
-        $student = $user->id;
-        $exam = Examination::where('students_id', $student)->count();
+        $userId = Auth::id();
+        $student = Student::where('users_id', $userId)->first();
+        $exam = Examination::where('students_id', $student->id)->count();
         return view('student.dashboard-stud', compact('user', 'exam'));
     }
 
@@ -221,21 +222,10 @@ class DashboardController extends Controller
             }
         }
 
-        // $update = User::where('id', $request->id)->update([
-        //     'full_name' => $request->full_name,
-        //     'username' => $request->username,
-        //     'email' => $request->email,
-        //     // 'password' => $request->password ? bcrypt($request->password) : DB ::raw('password'),
-        //     'password' => $request->password ? bcrypt($request->password) : $user->password,    
-        //     'phone_number' => $request->phone_number,
-        //     'image' => $fileName
-        // ]);
-
         $update = User::where('id', Auth::id())->update([
             'full_name' => $request->full_name,
             'username' => $request->username,
             'email' => $request->email,
-            // 'password' => $request->password ? bcrypt($request->password) : DB ::raw('password'),
             'password' => $request->password ? bcrypt($request->password) : $user->password,    
             'phone_number' => $request->phone_number,
             'image' => $fileName

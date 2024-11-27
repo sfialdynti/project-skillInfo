@@ -16,7 +16,8 @@ class CompetencyStandardController extends Controller
         $data['profile'] = Auth::user();
         $userId = Auth::id(); 
         $assessor = Assessor::where('users_id', $userId)->first();
-        $data['cs'] = Competency_standard::where('assessors_id', $assessor->id)->orderby('unit_code', 'asc')->paginate(10);
+        $data['cs'] = Competency_standard::where('assessors_id', $assessor->id)->orderby('unit_code', 'asc')
+        ->paginate(10);
 
         return view('assessor.table-competency_standard', $data);
     }

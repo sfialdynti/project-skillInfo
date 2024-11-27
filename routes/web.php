@@ -154,7 +154,8 @@ Route::middleware('statusLogin')->group(function () {
         Route::get('/dashboardStudent', [DashboardController::class, 'showstud']);
         Route::get('/detail/profile-stud/{id}', [DashboardController::class, 'profilestud']);
         Route::post('profile-stud/update/{id}', [DashboardController::class, 'updtprofilestud']);
-
+        Route::get('/result', [ExaminationController::class, 'result']);
+        Route::get('/exam_results/pdf', [ExaminationController::class, 'print_pdf']);
         
     });
 

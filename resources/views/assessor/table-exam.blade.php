@@ -165,6 +165,8 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Exam Date</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NISN</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Unit Title</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Criteria</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                       <th class="text-secondary opacity-7"></th>
@@ -181,6 +183,12 @@
                     </td>
                     <td class="align-middle">
                       <p class="text-xs font-weight-bold mb-0">{{ $item->students->nisn }}</p>
+                    </td>
+                    <td class="align-middle">
+                      <p class="text-xs font-weight-bold mb-0">{{ $item->students->users->full_name }}</p>
+                    </td>
+                    <td class="align-middle">
+                      <p class="text-xs font-weight-bold mb-0">{{ $item->competency_elements->competency_standards->unit_title }}</p>
                     </td>
                     <td class="align-middle">
                         <p class="text-xs font-weight-bold mb-0">{{ $item->competency_elements->criteria }}</p>
@@ -202,6 +210,9 @@
                     @endforeach
                   </tbody>  
                 </table>
+                <div class=" my-5">
+                  {{ $exam->withQueryString()->links() }}
+              </div>
               </div>
             </div>
           </div>

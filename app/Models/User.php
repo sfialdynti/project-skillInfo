@@ -21,12 +21,12 @@ class User extends Authenticatable
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'users_id');
     }
 
     public function assessors()
     {
-        return $this->hasMany(Assessor::class);
+        return $this->hasMany(Assessor::class, 'users_id');
     }
 
     // protected $fillable = [
