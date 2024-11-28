@@ -151,7 +151,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Exam count</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Score</th>
+                      {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Score</th> --}}
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
@@ -174,9 +174,9 @@
                     <td class="align-middle">
                         <p class="text-xs font-weight-bold mb-0">{{ $item->evaluation_status }}</p>
                     </td>
-                    <td class="align-middle">
+                    {{-- <td class="align-middle">
                       <p class="text-xs font-weight-bold mb-0">{{ $item->finalScore}}</p>
-                    </td>
+                    </td> --}}
                     <td class="align-middle text-center">
                         <a href="{{ route('assess-student', $item->id) }}" class="text-secondary font-weight-bold text-info me-3" style="font-size: 16px;" data-toggle="tooltip" data-original-title="Edit user">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

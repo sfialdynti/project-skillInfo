@@ -211,8 +211,6 @@ class AssessorController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invalid assessor type');
         }
-        
-        // return redirect('table-assessorint');
 
     }
 }

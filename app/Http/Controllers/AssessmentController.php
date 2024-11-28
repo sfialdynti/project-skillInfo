@@ -59,13 +59,6 @@ class AssessmentController extends Controller
         return view('assessor.table-assessment', compact('students', 'profile'));
     }
 
-    // public function search(Request $request)
-    // {
-    //     $data['profile'] = Auth::user();
-    //     $search = $request->input('search');
-    //     $query = Examination::query();
-    // }
-
     public function assessStudent($studentId)
     {
         $profile = Auth::user();
@@ -89,8 +82,7 @@ class AssessmentController extends Controller
                     'students_id' => $students->id,
                     'competency_elements_id' => $competencyElementId,
                     'assessors_id' => $assessor->id
-                ],
-                [
+                ], [
                     'exam_date' => $examDate,
                     'status' => $status,
                     'comments' => $request->comments[$competencyElementId] ?? null,
@@ -109,7 +101,6 @@ class AssessmentController extends Controller
 
         // dd($totalCompetency, $totalCompetencyElements, $finalScore);
 
-
         return redirect()->route('assessor.table-assessment');
 
     }
@@ -126,60 +117,5 @@ class AssessmentController extends Controller
             return 'Belum Kompeten';
         }
     }
-
-    // public function submitAssessment(Request $request, $studentId)
-    // {
-    //     $validate = $request->validate([
-    //         'status' => ['required', 'array'],
-    //         'status.*' => ['required', 'in:0,1'],
-    //         'comments' => ['nullable', 'array']
-    //     ]);
-
-    //     $student = Student::findOrFail($studentId);
-
-    //     foreach ($request->status as $elementId => $status) {
-    //         $exam = Examination::where('students_id', $student->id)
-    //             ->whereHas('competency_elements', function ($query) use ($elementId) {
-    //                 $query->where('competency_elements.id', $elementId);
-    //             })
-    //             ->first();
-    
-    //         // if ($exam) {
-    //         //     $exam->status = $status;
-    //         //     $exam->comment = $request->comment[$elementId] ?? '';
-    //         //     $exam->save();
-    //         // }
-    //         if ($exam) {
-    //             // Update status dan comment untuk examination yang sudah ada
-    //             $exam->update([
-    //                 'status' => $status,  // Update status
-    //                 'comment' => $request->comments[$elementId] ?? '',  // Update comment jika ada
-    //             ]);
-    //         }
-    //     }
-
-    //     $totalElements = $student->examinations->count();
-    //     $competentCount = $student->examinations->where('status', 1)->count();
-        
-    //     if ($totalElements > 0) {
-    //         $score = ($competentCount / $totalElements) * 100;
-
-    //         if ($score >= 91) {
-    //             $student->evaluation_status = 'Sangat Kompeten';
-    //         } elseif ($score >= 75) {
-    //             $student->evaluation_status = 'Kompeten';
-    //         } elseif ($score >= 61) {
-    //             $student->evaluation_status = 'Cukup Kompeten';
-    //         } else {
-    //             $student->evaluation_status = 'Belum Kompeten';
-    //         }
-    //     } else {
-    //         $student->evaluation_status = 'Belum Dinilai';
-    //     }
-
-    //     $student->save();
-
-    //     return redirect()->route('assessor.table-assessment');
-    // }
 
 }

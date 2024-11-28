@@ -220,7 +220,6 @@ class ExaminationController extends Controller
         $student = Student::all();
         $ce = Competency_element::all(); 
         $selectedElements = $exam->competency_elements_id ? json_decode($exam->competency_elements_id, true) : [];
-        // $selectedElements = json_decode($exam->competency_elements_id, true);
 
         return view('admin.exam-adm-edit', [
             'exam' => $exam,
@@ -287,16 +286,12 @@ class ExaminationController extends Controller
         $exam = Examination::where('students_id', $student->id)
         ->whereHas('competency_elements')
         ->whereHas('competency_elements.competency_standards')
-        ->with(['competency_elements.competency_standards', 'assessors'])
+        ->with(['competency_elements.competency_standards', 'assessors.users'])
         ->get();
 
         $examgroup = $exam->groupBy(function ($exam) {
             return $exam->competency_elements->competency_standards->id;
         });
-
-        if ($exam->isEmpty()) {
-            return redirect()->route('student.dashboard')->with('message', 'Anda belum memiliki ujian.');
-        }
 
         $totalCompetency = $exam->where('status', 1)->count();
         $totalCompetencyElements = $exam->count();
@@ -350,7 +345,6 @@ class ExaminationController extends Controller
         $totalCompetency = $exam->where('status', 1)->count();
         $totalCompetencyElements = $exam->count();
 
-        
         if ($totalCompetencyElements > 0) {
             $finalScore = ($totalCompetency / $totalCompetencyElements) * 100;
         } else {

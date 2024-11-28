@@ -156,9 +156,7 @@ class CompetencyStandardController extends Controller
     public function searchCS(Request $request)
     {
         $data['profile'] = Auth::user();
-        $userId = Auth::id();
-
-
+  
         $search = $request->input('search');
         $query = Competency_standard::query();
 

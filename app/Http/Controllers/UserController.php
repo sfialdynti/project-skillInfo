@@ -172,7 +172,7 @@ class UserController extends Controller
             'password' => $request->password ? bcrypt($request->password) : DB ::raw('password'),
             'phone_number' => $request->phone_number,
             'role' => $request->role,
-            // 'image' => $fileName
+            'image' => $fileName
         ]);
 
         if ($request->hasFile('image') || $request->old_image == null) {

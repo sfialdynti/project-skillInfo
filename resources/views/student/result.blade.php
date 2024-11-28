@@ -165,14 +165,18 @@
     </nav>
     <!-- End Navbar -->
     <div class="container mt-5">
-        <div class="text-center">
+      @if ($examgroup->isEmpty())
+      <p class="m-4 text-danger">No exam result found.</p>
+      @else
+        <div class="text-center mt-4">
+          <img src="{{ asset('assets/img/background/logoypc.png') }}" alt="Logo Kiri" width="50px">
             <h3>Hasil Ujian</h3>
             <p class="lead">Berikut adalah hasil ujian Anda:</p>
             <h4>{{ $student->users->full_name }}</h4>
             <h5>{{ $student->majors->major_name }}</h5>
             <p>{{ $status }}</p>
+            {{-- <p>Penguji :{{ $examgroup->first()->assessors->users->full_name }}</p> --}}
         </div>
-    
         <div class="container">
             <div class="mt-2">
                 @foreach ($examgroup as $key => $exam)
@@ -205,6 +209,7 @@
                     </table>
                 @endforeach
             </div>
+        @endif
         </div>
     </div>
     

@@ -28,7 +28,6 @@ class DashboardController extends Controller
             'total_cs' => Competency_standard::count(),
             'total_exam' => Examination::count()
         ];
-        // return view('dashboard', compact('user'));
         return view('admin.dashboard', ['user' => $user] + $data);
     }
 
@@ -222,7 +221,7 @@ class DashboardController extends Controller
             }
         }
 
-        $update = User::where('id', Auth::id())->update([
+        $update = User::where('id', $request->id)->update([
             'full_name' => $request->full_name,
             'username' => $request->username,
             'email' => $request->email,

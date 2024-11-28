@@ -117,7 +117,6 @@
                                 <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
                             </div>
                             <input type="hidden" name="old_image" value="{{ $user->image }}">
-
                         </div>
 
                         <div class=" col m-5">
